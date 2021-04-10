@@ -14,7 +14,7 @@ Window::~Window() {
     endwin();
 }
 
-void Window::paint() {
+void Window::printBorder() {
     init_color(COLOR_WHITE,500,500,500);
     init_pair(1, COLOR_YELLOW, COLOR_WHITE);
     attron(COLOR_PAIR(1));

@@ -9,5 +9,5 @@ class Window {
     public:
         Window(CPoint& corner, int width,int height);
         ~Window();
-        void paint();
+        void printBorder();
 };
