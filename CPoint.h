@@ -1,11 +1,15 @@
 class CPoint {
 
-    private:
+    public:
+
         int x,y;
 
-    public:
+        CPoint();
+        CPoint(CPoint &point);
         CPoint(int x, int y);
+        CPoint& operator=(const CPoint& point);
         bool operator==(const CPoint &point) const;
         CPoint& operator+=(const CPoint &point);
-        friend CPoint operator+(const CPoint &, const CPoint &);
+        friend CPoint operator+(const CPoint&,const CPoint&);
+
 };
