@@ -2,12 +2,14 @@
 
 class Window {
 
-    private:
+        public:
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
 
-    public:
+        Window(Window &win);
         Window(CPoint& corner, int width,int height);
         ~Window();
+        int getEvent();
         void printBorder();
+        void printEntryWindow();
 };

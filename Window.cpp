@@ -1,38 +1,66 @@
 #include "Window.h"
 #include <ncurses.h>
 
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow) {
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    start_color();
+    timeout(160);
+}
+
 Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height) {
     initscr();
     cbreak();
     noecho();
     curs_set(0);
     start_color();
-    timeout(500);
+    timeout(200);
 }
 
 Window::~Window() {
     endwin();
 }
 
+int Window::getEvent() {
+    return getch();
+}
+
 void Window::printBorder() {
     init_color(COLOR_WHITE,500,500,500);
-    init_pair(1, COLOR_YELLOW, COLOR_WHITE);
-    attron(COLOR_PAIR(1));
+    init_pair(3, COLOR_YELLOW, COLOR_WHITE);
+    init_pair(4,COLOR_YELLOW,COLOR_BLACK);
     for(int i=0;i<widthWindow;i++)
     {
-        mvaddch(upperLeftCorner.y,upperLeftCorner.x+i,' ');
+        for(int j=0;j<heightWindow;j++)
+        {
+            if(i==0 || j==0 || j==heightWindow-1 || i==widthWindow-1)
+            {
+                attron(COLOR_PAIR(3));
+                mvaddch(upperLeftCorner.y+j,upperLeftCorner.x+i,' ');
+                attroff(COLOR_PAIR(3));
+            }
+            else
+            {
+                attron(COLOR_PAIR(4));
+                mvaddch(upperLeftCorner.y+j,upperLeftCorner.x+i,' ');
+                attroff(COLOR_PAIR(4));
+            }
+        }
     }
-    for(int i=0;i<widthWindow;i++)
-    {
-        mvaddch(upperLeftCorner.y+heightWindow-1,upperLeftCorner.x+i,' ');
-    }
-    for(int i=0;i<heightWindow;i++)
-    {
-        mvaddch(upperLeftCorner.y+i,upperLeftCorner.x,' ');
-    }
-    for(int i=0;i<heightWindow;i++)
-    {
-        mvaddch(upperLeftCorner.y+i,upperLeftCorner.x+widthWindow-1,' ');
-    }
-    attroff(COLOR_PAIR(1));
+}
+
+void Window::printEntryWindow() {
+    int y=3+upperLeftCorner.y,x=upperLeftCorner.x+3;
+    mvprintw(++y,x,"  _____             _        ");
+    mvprintw(++y,x," / ____|           | |       ");
+    mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");
+    mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
+    mvprintw(++y,x," ____) | | | | (_| |   |  __/");
+    mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
+    mvprintw(++y,x,"Wcisnij-'r' aby rozpoczac gre");
+    mvprintw(++y,x,"Wcisnij-'h' aby uzyskac pomoc");
+    mvprintw(++y,x,"Wcisnij-'p' aby zatrzymac gre");
+    mvprintw(++y,x,"strzalki umozliwaja poruszanie sie");
 }
