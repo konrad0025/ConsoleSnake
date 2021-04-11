@@ -24,6 +24,7 @@ class Snake {
         void printSnake();
         void printFood();
         void printLevelInfo();
+        void printPause();
         void moveSnake();
         bool handleEvent(int key);
         bool handleEventDuringGameMode(int key);

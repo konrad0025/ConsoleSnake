@@ -52,7 +52,7 @@ void Window::printBorder() {
 }
 
 void Window::printEntryWindow() {
-    int y=3+upperLeftCorner.y,x=upperLeftCorner.x+3;
+    int y=3+upperLeftCorner.y,x=upperLeftCorner.x+5;
     mvprintw(++y,x,"  _____             _        ");
     mvprintw(++y,x," / ____|           | |       ");
     mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");

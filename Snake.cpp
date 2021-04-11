@@ -49,6 +49,13 @@ void Snake::printLevelInfo() {
     mvprintw(gameWindow.upperLeftCorner.y-1,gameWindow.upperLeftCorner.x+(gameWindow.widthWindow/2)-(textSize/2),"|Your Score = %d|",level);
     attroff(COLOR_PAIR(3));
 }
+void Snake::printPause() {
+    int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
+    mvprintw(++y,x,"Press-'p' to get back to the game");
+    mvprintw(++y,x,"Press-'r' to start the game");
+}
+
+
 bool Snake::handleEvent(int key) {
 
     switch (gameMode){
@@ -126,6 +133,10 @@ bool Snake::handleEventDuringPauseMode(int key) {
     switch(key){
         case 'p':
             gameMode=game;
+            return true;
+        case 'r':
+            gameMode=game;
+            restartGame();
             return true;
     };
     return false;
@@ -259,6 +270,7 @@ void Snake::gameLoop() {
                 break;
             case pause:
                 print();
+                printPause();
                 break;
             case afterGame:
                 gameWindow.printAfterGame(level);
