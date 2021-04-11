@@ -59,14 +59,14 @@ void Window::printEntryWindow() {
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
-    mvprintw(++y,x,"Wcisnij-'r' aby rozpoczac gre");
-    mvprintw(++y,x,"Wcisnij-'h' aby uzyskac pomoc");
-    mvprintw(++y,x,"Wcisnij-'p' aby zatrzymac gre");
-    mvprintw(++y,x,"strzalki umozliwaja poruszanie sie");
+    mvprintw(++y,x,"Press-'r' to start the game");
+    mvprintw(++y,x,"Press-'h' to get help");
+    mvprintw(++y,x,"Press-'p' to pause the game");
+    mvprintw(++y,x,"WASD- let you move");
 }
 void Window::printAfterGame(int level)
 {
     int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;
-    mvprintw(++y,x,"Twoj wynik to %d",level);
-    mvprintw(++y,x,"Aby zagrac ponownie wcisnij 'r'");
+    mvprintw(++y,x,"Your final score is %d",level);
+    mvprintw(++y,x,"If you want play again press 'r'");
 }
