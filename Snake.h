@@ -29,6 +29,7 @@ class Snake {
         bool handleEventDuringGameMode(int key);
         bool handleEventDuringBeforeGameMode(int key);
         bool handleEventDuringAfterGameMode(int key);
+        bool handleEventDuringPauseMode(int key);
         bool makeFood();
         void afterEat();
         bool afterCollision();

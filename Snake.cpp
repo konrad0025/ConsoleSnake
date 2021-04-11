@@ -58,6 +58,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringGameMode(key);
         case afterGame:
             return handleEventDuringAfterGameMode(key);
+        case pause:
+            return handleEventDuringPauseMode(key);
     };
     return false;
 }
@@ -94,6 +96,9 @@ bool Snake::handleEventDuringGameMode(int key)
             }
             dir=left;
             return true;
+        case 'p':
+            gameMode=pause;
+            return true;
     };
     return false;
 }
@@ -117,6 +122,14 @@ bool Snake::handleEventDuringAfterGameMode(int key) {
     return false;
 }
 
+bool Snake::handleEventDuringPauseMode(int key) {
+    switch(key){
+        case 'p':
+            gameMode=game;
+            return true;
+    };
+    return false;
+}
 void Snake::moveSnake() {
     auto headIndex=snakePosition.begin();
     switch(dir)
@@ -242,6 +255,9 @@ void Snake::gameLoop() {
                     gameMode=afterGame;
                 }
                 afterEat();
+                print();
+                break;
+            case pause:
                 print();
                 break;
             case afterGame:
