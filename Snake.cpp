@@ -192,7 +192,6 @@ void Snake::moveSnake() {
 
 bool Snake::makeFood()
 {
-    srand(time(NULL));
     food.x=(rand()%(gameWindow.widthWindow-2))+1;
     food.y=(rand()%(gameWindow.heightWindow-2))+1;
     for(unsigned int i=0; i<snakePosition.size();i++)
