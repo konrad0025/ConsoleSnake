@@ -3,11 +3,12 @@
 #include <cstdlib>
 #include <ctime>
 #include "Window.h"
+#include <string.h>
 
 using namespace std;
 
 enum direction{up,down,right,left};
-enum mode{beforGame,game,afterGame,help,pause};
+enum mode{beforeGame,game,afterGame,help,pause};
 class Snake {
     public:
         vector<CPoint> snakePosition;
@@ -22,6 +23,7 @@ class Snake {
         void print();
         void printSnake();
         void printFood();
+        void printLevelInfo();
         void moveSnake();
         bool handleEvent(int key);
         bool handleEventDuringGameMode(int key);

@@ -1,5 +1,5 @@
 #include "Snake.h"
-Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforGame) {
+Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforeGame) {
 
     snakePosition.push_back(CPoint(10,10));
     snakePosition.push_back(CPoint(11,10));
@@ -8,6 +8,7 @@ Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforGame
 }
 
 void Snake::print() {
+    printLevelInfo();
     printFood();
     printSnake();
 }
@@ -40,10 +41,18 @@ void Snake::printFood() {
     attroff(COLOR_PAIR(5));
 }
 
+void Snake::printLevelInfo() {
+    int textSize=strlen("|Your Score = %d|");
+    init_color(COLOR_WHITE,500,500,500);
+    init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    attron(COLOR_PAIR(3));
+    mvprintw(gameWindow.upperLeftCorner.y-1,gameWindow.upperLeftCorner.x+(gameWindow.widthWindow/2)-(textSize/2),"|Your Score = %d|",level);
+    attroff(COLOR_PAIR(3));
+}
 bool Snake::handleEvent(int key) {
 
     switch (gameMode){
-        case beforGame:
+        case beforeGame:
             return handleEventDuringBeforeGameMode(key);
         case game:
             return handleEventDuringGameMode(key);
@@ -199,7 +208,7 @@ void Snake::gameLoop() {
         handleEvent(gameWindow.getEvent());
         gameWindow.printBorder();
         switch (gameMode) {
-            case beforGame:
+            case beforeGame:
                 gameWindow.printEntryWindow();
                 break;
             case game:
