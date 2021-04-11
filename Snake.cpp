@@ -56,6 +56,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringBeforeGameMode(key);
         case game:
             return handleEventDuringGameMode(key);
+        case afterGame:
+            return handleEventDuringAfterGameMode(key);
     };
     return false;
 }
@@ -100,6 +102,16 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
     switch(key){
         case 'r':
             gameMode=game;
+            return true;
+    };
+    return false;
+}
+
+bool Snake::handleEventDuringAfterGameMode(int key) {
+    switch(key){
+        case 'r':
+            gameMode=game;
+            restartGame();
             return true;
     };
     return false;
@@ -201,6 +213,18 @@ bool Snake::afterCollision()
     return false;
 }
 
+void Snake::restartGame()
+{
+    snakePosition.clear();
+    snakePosition.push_back(CPoint(10,10));
+    snakePosition.push_back(CPoint(11,10));
+    snakePosition.push_back(CPoint(12,10));
+    level=0;
+    dir=left;
+    timeout(200);
+    while(!makeFood()){}
+}
+
 void Snake::gameLoop() {
 
     while(true)
@@ -215,13 +239,16 @@ void Snake::gameLoop() {
                 moveSnake();
                 if(afterCollision())
                 {
-                    goto label;
+                    gameMode=afterGame;
                 }
                 afterEat();
                 print();
                 break;
-            default:
+            case afterGame:
+                gameWindow.printAfterGame(level);
                 break;
+            default:
+                goto label;
         }
 
         refresh();

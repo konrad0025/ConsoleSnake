@@ -12,4 +12,5 @@ class Window {
         int getEvent();
         void printBorder();
         void printEntryWindow();
+        void printAfterGame(int level);
 };

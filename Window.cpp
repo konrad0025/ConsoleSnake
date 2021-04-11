@@ -64,3 +64,9 @@ void Window::printEntryWindow() {
     mvprintw(++y,x,"Wcisnij-'p' aby zatrzymac gre");
     mvprintw(++y,x,"strzalki umozliwaja poruszanie sie");
 }
+void Window::printAfterGame(int level)
+{
+    int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;
+    mvprintw(++y,x,"Twoj wynik to %d",level);
+    mvprintw(++y,x,"Aby zagrac ponownie wcisnij 'r'");
+}
