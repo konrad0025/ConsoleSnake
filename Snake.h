@@ -10,14 +10,14 @@ using namespace std;
 enum mode{beforeGame,game,afterGame,help,pause};
 
 class Snake {
-    public:
+    private:
         vector<CPoint> snakePosition;
         Window gameWindow;
         enum direction dir;
         CPoint food;
         int level;
         enum mode gameMode;
-
+    public:
         Snake(Window &win);
 
         void print();

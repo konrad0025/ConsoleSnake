@@ -115,6 +115,10 @@ bool Snake::handleEventDuringGameMode(int key)
             }
             dir=left;
             return true;
+        case 'r':
+            gameMode=game;
+            restartGame();
+            return true;
         case 'p':
             gameMode=pause;
             return true;
