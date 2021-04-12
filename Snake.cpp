@@ -343,7 +343,7 @@ void Snake::restartGame()
 
 void Snake::gameLoop() {
 
-    while(handleEvent(gameWindow.getEvent()))
+    do
     {
         gameWindow.printBorder();
         switch (gameMode) {
@@ -370,11 +370,7 @@ void Snake::gameLoop() {
             case afterGame:
                 gameWindow.printAfterGame(level);
                 break;
-            default:
-                goto label;
         }
         refresh();
-    }
-    label:
-    return;
+    }while(handleEvent(gameWindow.getEvent()));
 }
