@@ -2,12 +2,12 @@ CC=g++
 SRC=./src
 OBJ=./obj
 
-all: $(OBJ) SnakeGame
+all: $(OBJ) ConsoleSnake
 
 $(OBJ):
 	mkdir -p $(OBJ)
 
-SnakeGame: $(OBJ)/main.o $(OBJ)/CPoint.o $(OBJ)/Window.o $(OBJ)/Snake.o
+ConsoleSnake: $(OBJ)/main.o $(OBJ)/CPoint.o $(OBJ)/Window.o $(OBJ)/Snake.o
 	$(CC) $^ -o $@ -lncurses
 $(OBJ)/main.o: $(SRC)/main.cpp $(SRC)/Snake.h $(SRC)/Snake.cpp $(SRC)/Window.h $(SRC)/Window.cpp $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 	$(CC) -c $< -o $@
@@ -21,4 +21,4 @@ $(OBJ)/CPoint.o: $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 .PHONY: clean
 
 clean:
-	-rm -r $(OBJ)/*.o SnakeGame obj
+	-rm -r $(OBJ)/*.o ConsoleSnake obj
