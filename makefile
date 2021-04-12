@@ -1,16 +1,21 @@
 CC=g++
+SRC=./src
+OBJ=./obj
 
-all: SnakeGame
+all: $(OBJ) SnakeGame
 
-SnakeGame: main.o CPoint.o Window.o Snake.o
+$(OBJ):
+	mkdir -p $(OBJ)
+
+SnakeGame: $(OBJ)/main.o $(OBJ)/CPoint.o $(OBJ)/Window.o $(OBJ)/Snake.o
 	$(CC) $^ -o $@ -lncurses
-main.o: main.cpp Snake.h Snake.cpp Window.h Window.cpp CPoint.cpp CPoint.h
+$(OBJ)/main.o: $(SRC)/main.cpp $(SRC)/Snake.h $(SRC)/Snake.cpp $(SRC)/Window.h $(SRC)/Window.cpp $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 	$(CC) -c $< -o $@
-Snake.o: Snake.cpp Snake.h Window.h Window.cpp CPoint.cpp CPoint.h
+$(OBJ)/Snake.o: $(SRC)/Snake.cpp $(SRC)/Snake.h $(SRC)/Window.h $(SRC)/Window.cpp $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 	$(CC) -c $< -o $@
-Window.o: Window.cpp Window.h CPoint.cpp CPoint.h
+$(OBJ)/Window.o: $(SRC)/Window.cpp $(SRC)/Window.h $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 	$(CC) -c $< -o $@
-CPoint.o: CPoint.cpp CPoint.h
+$(OBJ)/CPoint.o: $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 	$(CC) -c $< -o $@
 
 .PHONY: clean
