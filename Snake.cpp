@@ -60,9 +60,10 @@ void Snake::printPause() {
 
 void Snake::printHelp() {
     int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
-    mvprintw(++y,x,"Press-'r' to start the game");
+    mvprintw(++y,x,"Press-'r' to restart the game");
     mvprintw(++y,x,"Press-'h' to get help");
     mvprintw(++y,x,"Press-'p' to pause the game");
+    mvprintw(++y,x,"Press-'q' to quit the game");
     mvprintw(++y,x,"WASD- let you move");
 }
 

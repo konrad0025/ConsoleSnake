@@ -62,6 +62,7 @@ void Window::printEntryWindow() {
     mvprintw(++y,x,"Press-'r' to start the game");
     mvprintw(++y,x,"Press-'h' to get help");
     mvprintw(++y,x,"Press-'p' to pause the game");
+    mvprintw(++y,x,"Press-'q' to quit the game");
     mvprintw(++y,x,"WASD- let you move");
 }
 void Window::printAfterGame(int level)
@@ -70,7 +71,8 @@ void Window::printAfterGame(int level)
     clearWindow();
     printBorder();
     mvprintw(++y,x,"Your final score is %d",level);
-    mvprintw(++y,x,"If you want play again press 'r'");
+    mvprintw(++y,x,"Press-'r' to restart the game");
+    mvprintw(++y,x,"Press-'q' to quit the game");
 }
 
 void Window::clearWindow()
