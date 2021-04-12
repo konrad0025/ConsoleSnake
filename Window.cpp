@@ -71,3 +71,30 @@ void Window::printAfterGame(int level)
     mvprintw(++y,x,"If you want play again press 'r'");
     mvhline(upperLeftCorner.y-1, x, ' ', COLS);
 }
+
+void Window::clearWindow()
+{
+    for(int i=0;i<LINES;i++)
+    {
+        mvhline(i, 0, ' ', COLS);
+    }
+}
+
+void Window::moveWindow(enum direction dir)
+{
+    switch(dir){
+        case up:
+            upperLeftCorner.y--;
+            break;
+        case down:
+            upperLeftCorner.y++;
+            break;
+        case left:
+            upperLeftCorner.x--;
+            break;
+        case right:
+            upperLeftCorner.x++;
+            break;
+    };
+    clearWindow();
+}

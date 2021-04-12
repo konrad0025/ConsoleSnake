@@ -7,8 +7,8 @@
 
 using namespace std;
 
-enum direction{up,down,right,left};
 enum mode{beforeGame,game,afterGame,help,pause};
+
 class Snake {
     public:
         vector<CPoint> snakePosition;

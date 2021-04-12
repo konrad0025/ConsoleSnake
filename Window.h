@@ -1,5 +1,7 @@
 #include "CPoint.h"
 
+enum direction{up,down,right,left};
+
 class Window {
 
         public:
@@ -13,4 +15,6 @@ class Window {
         void printBorder();
         void printEntryWindow();
         void printAfterGame(int level);
+        void clearWindow();
+        void moveWindow(enum direction dir);
 };

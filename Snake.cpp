@@ -130,6 +130,18 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
         case 'r':
             gameMode=game;
             return true;
+        case 'w':
+            gameWindow.moveWindow(up);
+            return true;
+        case 's':
+            gameWindow.moveWindow(down);
+            return true;
+        case 'a':
+            gameWindow.moveWindow(left);
+            return true;
+        case 'd':
+            gameWindow.moveWindow(right);
+            return true;
     };
     return false;
 }
@@ -139,6 +151,18 @@ bool Snake::handleEventDuringAfterGameMode(int key) {
         case 'r':
             gameMode=game;
             restartGame();
+            return true;
+        case 'w':
+            gameWindow.moveWindow(up);
+            return true;
+        case 's':
+            gameWindow.moveWindow(down);
+            return true;
+        case 'a':
+            gameWindow.moveWindow(left);
+            return true;
+        case 'd':
+            gameWindow.moveWindow(right);
             return true;
     };
     return false;
@@ -153,6 +177,18 @@ bool Snake::handleEventDuringPauseMode(int key) {
             gameMode=game;
             restartGame();
             return true;
+        case 'w':
+            gameWindow.moveWindow(up);
+            return true;
+        case 's':
+            gameWindow.moveWindow(down);
+            return true;
+        case 'a':
+            gameWindow.moveWindow(left);
+            return true;
+        case 'd':
+            gameWindow.moveWindow(right);
+            return true;
     };
     return false;
 }
@@ -165,6 +201,18 @@ bool Snake::handleEventDuringHelpMode(int key) {
         case 'r':
             gameMode=game;
             restartGame();
+            return true;
+        case 'w':
+            gameWindow.moveWindow(up);
+            return true;
+        case 's':
+            gameWindow.moveWindow(down);
+            return true;
+        case 'a':
+            gameWindow.moveWindow(left);
+            return true;
+        case 'd':
+            gameWindow.moveWindow(right);
             return true;
     };
     return false;
@@ -311,7 +359,6 @@ void Snake::gameLoop() {
             default:
                 goto label;
         }
-
         refresh();
     }
     label:
