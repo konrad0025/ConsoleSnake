@@ -21,4 +21,4 @@ $(OBJ)/CPoint.o: $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 .PHONY: clean
 
 clean:
-	-rm *.o SnakeGame
+	-rm -r $(OBJ)/*.o SnakeGame obj
