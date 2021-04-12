@@ -7,7 +7,7 @@ Just run the makefile and then run ConsolSnake
 This is a typical snake game where you control your snake by using 'WASD'.<br>
 The main goal is to earn points and get bigger.<br>
 You can also move the game window with "WASD" at almost any moment except the stage when you are controlling the snake.
-##### Game window
+#### Game window
 ![](photosToReadme/duringGameWindow.png)
-##### Menu Window
+#### Menu Window
 ![](photosToReadme/beforeGameWindow.png)<br>
