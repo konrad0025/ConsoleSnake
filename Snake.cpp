@@ -1,4 +1,5 @@
 #include "Snake.h"
+
 Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforeGame) {
 
     snakePosition.push_back(CPoint(10,10));
@@ -12,6 +13,7 @@ void Snake::print() {
     printFood();
     printSnake();
 }
+
 void Snake::printSnake()
 {
     init_color(COLOR_GREEN,0,300,0);
@@ -49,12 +51,20 @@ void Snake::printLevelInfo() {
     mvprintw(gameWindow.upperLeftCorner.y-1,gameWindow.upperLeftCorner.x+(gameWindow.widthWindow/2)-(textSize/2),"|Your Score = %d|",level);
     attroff(COLOR_PAIR(3));
 }
+
 void Snake::printPause() {
     int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
     mvprintw(++y,x,"Press-'p' to get back to the game");
     mvprintw(++y,x,"Press-'r' to start the game");
 }
 
+void Snake::printHelp() {
+    int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
+    mvprintw(++y,x,"Press-'r' to start the game");
+    mvprintw(++y,x,"Press-'h' to get help");
+    mvprintw(++y,x,"Press-'p' to pause the game");
+    mvprintw(++y,x,"WASD- let you move");
+}
 
 bool Snake::handleEvent(int key) {
 
@@ -67,6 +77,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringAfterGameMode(key);
         case pause:
             return handleEventDuringPauseMode(key);
+        case help:
+            return handleEventDuringHelpMode(key);
     };
     return false;
 }
@@ -106,6 +118,9 @@ bool Snake::handleEventDuringGameMode(int key)
         case 'p':
             gameMode=pause;
             return true;
+        case 'h':
+            gameMode=help;
+            return true;
     };
     return false;
 }
@@ -141,6 +156,20 @@ bool Snake::handleEventDuringPauseMode(int key) {
     };
     return false;
 }
+
+bool Snake::handleEventDuringHelpMode(int key) {
+    switch(key){
+        case 'h':
+            gameMode=game;
+            return true;
+        case 'r':
+            gameMode=game;
+            restartGame();
+            return true;
+    };
+    return false;
+}
+
 void Snake::moveSnake() {
     auto headIndex=snakePosition.begin();
     switch(dir)
@@ -238,6 +267,7 @@ bool Snake::afterCollision()
 
 void Snake::restartGame()
 {
+    mvhline(gameWindow.upperLeftCorner.y-1, gameWindow.upperLeftCorner.x, ' ', COLS);
     snakePosition.clear();
     snakePosition.push_back(CPoint(10,10));
     snakePosition.push_back(CPoint(11,10));
@@ -270,6 +300,10 @@ void Snake::gameLoop() {
             case pause:
                 print();
                 printPause();
+                break;
+            case help:
+                print();
+                printHelp();
                 break;
             case afterGame:
                 gameWindow.printAfterGame(level);

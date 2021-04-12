@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "Window.h"
-#include <string.h>
+#include <cstring>
 
 using namespace std;
 
@@ -25,12 +25,14 @@ class Snake {
         void printFood();
         void printLevelInfo();
         void printPause();
+        void printHelp();
         void moveSnake();
         bool handleEvent(int key);
         bool handleEventDuringGameMode(int key);
         bool handleEventDuringBeforeGameMode(int key);
         bool handleEventDuringAfterGameMode(int key);
         bool handleEventDuringPauseMode(int key);
+        bool handleEventDuringHelpMode(int key);
         bool makeFood();
         void afterEat();
         bool afterCollision();
