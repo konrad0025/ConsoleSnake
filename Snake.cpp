@@ -80,7 +80,7 @@ bool Snake::handleEvent(int key) {
         case help:
             return handleEventDuringHelpMode(key);
     };
-    return false;
+    return true;
 }
 
 bool Snake::handleEventDuringGameMode(int key)
@@ -125,8 +125,10 @@ bool Snake::handleEventDuringGameMode(int key)
         case 'h':
             gameMode=help;
             return true;
+        case 'q':
+            return false;
     };
-    return false;
+    return true;
 }
 
 bool Snake::handleEventDuringBeforeGameMode(int key) {
@@ -146,8 +148,10 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
         case 'd':
             gameWindow.moveWindow(right);
             return true;
+        case 'q':
+            return false;
     };
-    return false;
+    return true;
 }
 
 bool Snake::handleEventDuringAfterGameMode(int key) {
@@ -168,8 +172,10 @@ bool Snake::handleEventDuringAfterGameMode(int key) {
         case 'd':
             gameWindow.moveWindow(right);
             return true;
+        case 'q':
+            return false;
     };
-    return false;
+    return true;
 }
 
 bool Snake::handleEventDuringPauseMode(int key) {
@@ -193,8 +199,10 @@ bool Snake::handleEventDuringPauseMode(int key) {
         case 'd':
             gameWindow.moveWindow(right);
             return true;
+        case 'q':
+            return false;
     };
-    return false;
+    return true;
 }
 
 bool Snake::handleEventDuringHelpMode(int key) {
@@ -218,8 +226,10 @@ bool Snake::handleEventDuringHelpMode(int key) {
         case 'd':
             gameWindow.moveWindow(right);
             return true;
+        case 'q':
+            return false;
     };
-    return false;
+    return true;
 }
 
 void Snake::moveSnake() {
@@ -319,7 +329,7 @@ bool Snake::afterCollision()
 
 void Snake::restartGame()
 {
-    mvhline(gameWindow.upperLeftCorner.y-1, gameWindow.upperLeftCorner.x, ' ', COLS);
+    gameWindow.clearWindow();
     snakePosition.clear();
     snakePosition.push_back(CPoint(10,10));
     snakePosition.push_back(CPoint(11,10));
@@ -332,9 +342,8 @@ void Snake::restartGame()
 
 void Snake::gameLoop() {
 
-    while(true)
+    while(handleEvent(gameWindow.getEvent()))
     {
-        handleEvent(gameWindow.getEvent());
         gameWindow.printBorder();
         switch (gameMode) {
             case beforeGame:

@@ -67,9 +67,10 @@ void Window::printEntryWindow() {
 void Window::printAfterGame(int level)
 {
     int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;
+    clearWindow();
+    printBorder();
     mvprintw(++y,x,"Your final score is %d",level);
     mvprintw(++y,x,"If you want play again press 'r'");
-    mvhline(upperLeftCorner.y-1, x, ' ', COLS);
 }
 
 void Window::clearWindow()
