@@ -56,8 +56,10 @@ void Window::printBorder() {
 }
 
 void Window::printEntryWindow() {
-    int y=2+upperLeftCorner.y,x=upperLeftCorner.x+5;
-    mvprintw(++y,x,"  _____             _        ");
+    string line1="  _____             _        ";
+    int y=2+upperLeftCorner.y;
+    int x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
+    mvprintw(++y,x,line1.c_str());
     mvprintw(++y,x," / ____|           | |       ");
     mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
@@ -67,6 +69,34 @@ void Window::printEntryWindow() {
     buttonHelp.print();
     buttonExit.print();
 }
+
+void Window::printEntryHelpInfo() {
+
+    init_color(COLOR_WHITE,500,500,500);
+    init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    string line2="Press-'r' to restart the game";
+    string line3="Press-'p' to pause the game";
+    string line4="Press-'q' to quit the game";
+    string line1="During the game";
+    string line5="WASD- let you move";
+    attron(COLOR_PAIR(3));
+    int y=(upperLeftCorner.y+heightWindow/2)-6;
+    for(int i=0;i<line2.size()+2;i++)
+    {
+        for(int j=0;j<5+2;j++)
+        {
+            mvprintw(y+j,upperLeftCorner.x+widthWindow/2-line2.size()/2+i-1," ");
+        }
+    }
+
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line1.size()/2,line1.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line2.size()/2,line2.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line3.size()/2,line3.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line4.size()/2,line4.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line5.size()/2,line5.c_str());
+    attroff(COLOR_PAIR(3));
+}
+
 void Window::printAfterGame(int level)
 {
     int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;

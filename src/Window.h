@@ -16,6 +16,7 @@ class Window {
         void printBorder();
         void printEntryWindow();
         void printAfterGame(int level);
+        void printEntryHelpInfo();
         void clearWindow();
         void moveWindow(enum direction dir);
         void changePointedButton(enum direction dir);

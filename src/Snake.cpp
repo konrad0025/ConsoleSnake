@@ -72,6 +72,8 @@ bool Snake::handleEvent(int key) {
     switch (gameMode){
         case beforeGame:
             return handleEventDuringBeforeGameMode(key);
+        case helpBeforeGame:
+            return handleEventDuringHelpBeforeGameMode(key);
         case game:
             return handleEventDuringGameMode(key);
         case afterGame:
@@ -159,10 +161,7 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             return true;
         case '\n':
             if(gameWindow.buttonStart.isPointed) gameMode=game;
-            else if(gameWindow.buttonHelp.isPointed)
-            {
-
-            }
+            else if(gameWindow.buttonHelp.isPointed) gameMode=helpBeforeGame;
             else if(gameWindow.buttonExit.isPointed)
             {
                 return false;
@@ -170,6 +169,18 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             return true;
     };
     return true;
+}
+
+bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
+    switch(key){
+        case '\n':
+            gameMode=beforeGame;
+            return true;
+        case 'q':
+            return false;
+    }
+    return true;
+
 }
 
 bool Snake::handleEventDuringAfterGameMode(int key) {
@@ -366,6 +377,9 @@ void Snake::gameLoop() {
         switch (gameMode) {
             case beforeGame:
                 gameWindow.printEntryWindow();
+                break;
+            case helpBeforeGame:
+                gameWindow.printEntryHelpInfo();
                 break;
             case game:
                 moveSnake();
