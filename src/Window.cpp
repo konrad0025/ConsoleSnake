@@ -1,7 +1,7 @@
 #include "Window.h"
 #include <string>
 
-Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
     initscr();
 
     cbreak();
@@ -13,7 +13,7 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(w
 
 }
 
-Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
+Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
     initscr();
     cbreak();
     noecho();
@@ -95,6 +95,7 @@ void Window::printEntryHelpInfo() {
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line4.size()/2,line4.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line5.size()/2,line5.c_str());
     attroff(COLOR_PAIR(3));
+    buttonBack.print();
 }
 
 void Window::printAfterGame(int level)
@@ -123,24 +124,28 @@ void Window::moveWindow(enum direction dir)
             buttonStart.upperLeftCorner.y--;
             buttonHelp.upperLeftCorner.y--;
             buttonExit.upperLeftCorner.y--;
+            buttonBack.upperLeftCorner.y--;
             break;
         case down:
             upperLeftCorner.y++;
             buttonStart.upperLeftCorner.y++;
             buttonHelp.upperLeftCorner.y++;
             buttonExit.upperLeftCorner.y++;
+            buttonBack.upperLeftCorner.y++;
             break;
         case left:
             upperLeftCorner.x--;
             buttonStart.upperLeftCorner.x--;
             buttonHelp.upperLeftCorner.x--;
             buttonExit.upperLeftCorner.x--;
+            buttonBack.upperLeftCorner.x--;
             break;
         case right:
             upperLeftCorner.x++;
             buttonStart.upperLeftCorner.x++;
             buttonHelp.upperLeftCorner.x++;
             buttonExit.upperLeftCorner.x++;
+            buttonBack.upperLeftCorner.x++;
             break;
     };
     clearWindow();

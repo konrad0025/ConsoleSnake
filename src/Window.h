@@ -7,7 +7,7 @@ class Window {
         public:
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
-        Button buttonHelp,buttonStart,buttonExit;
+        Button buttonHelp,buttonStart,buttonBack,buttonExit;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);
