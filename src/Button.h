@@ -10,6 +10,6 @@ class Button {
         bool isPointed;
 
         Button(string text,CPoint corner,int width,int height,bool isPointed);
-        void paint();
+        void print();
 
 };

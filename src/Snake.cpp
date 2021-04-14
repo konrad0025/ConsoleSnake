@@ -151,6 +151,23 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             return true;
         case 'q':
             return false;
+        case KEY_UP:
+            gameWindow.changePointedButton(up);
+            return true;
+        case KEY_DOWN:
+            gameWindow.changePointedButton(down);
+            return true;
+        case '\n':
+            if(gameWindow.buttonStart.isPointed) gameMode=game;
+            else if(gameWindow.buttonHelp.isPointed)
+            {
+
+            }
+            else if(gameWindow.buttonExit.isPointed)
+            {
+                return false;
+            }
+            return true;
     };
     return true;
 }

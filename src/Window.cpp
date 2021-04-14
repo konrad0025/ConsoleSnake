@@ -3,11 +3,12 @@
 
 Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
     initscr();
+
     cbreak();
     noecho();
     curs_set(0);
     start_color();
-
+    keypad(stdscr, TRUE);
     timeout(160);
 
 }
@@ -18,6 +19,7 @@ Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), 
     noecho();
     curs_set(0);
     start_color();
+    keypad(stdscr, TRUE);
     timeout(160);
 }
 
@@ -61,9 +63,9 @@ void Window::printEntryWindow() {
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
-    buttonStart.paint();
-    buttonHelp.paint();
-    buttonExit.paint();
+    buttonStart.print();
+    buttonHelp.print();
+    buttonExit.print();
 }
 void Window::printAfterGame(int level)
 {
@@ -112,4 +114,43 @@ void Window::moveWindow(enum direction dir)
             break;
     };
     clearWindow();
+}
+
+void Window::changePointedButton(enum direction dir) {
+    switch(dir){
+        case down:
+            if(buttonStart.isPointed)
+            {
+                buttonStart.isPointed=false;
+                buttonHelp.isPointed=true;
+            }
+            else if(buttonHelp.isPointed)
+            {
+                buttonHelp.isPointed=false;
+                buttonExit.isPointed=true;
+            }
+            else if(buttonExit.isPointed)
+            {
+                buttonExit.isPointed=false;
+                buttonStart.isPointed=true;
+            }
+            break;
+        case up:
+            if(buttonStart.isPointed)
+            {
+                buttonStart.isPointed=false;
+                buttonExit.isPointed=true;
+            }
+            else if(buttonHelp.isPointed)
+            {
+                buttonHelp.isPointed=false;
+                buttonStart.isPointed=true;
+            }
+            else if(buttonExit.isPointed)
+            {
+                buttonExit.isPointed=false;
+                buttonHelp.isPointed=true;
+            }
+            break;
+    };
 }
