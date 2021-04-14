@@ -1,5 +1,5 @@
-#include "CPoint.h"
-
+#include <ncurses.h>
+#include "Button.h"
 enum direction{up,down,right,left};
 
 class Window {
@@ -7,6 +7,7 @@ class Window {
         public:
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
+        Button buttonHelp,buttonStart,buttonExit;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);

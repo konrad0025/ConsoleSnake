@@ -372,5 +372,6 @@ void Snake::gameLoop() {
                 break;
         }
         refresh();
+
     }while(handleEvent(gameWindow.getEvent()));
 }

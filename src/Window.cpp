@@ -1,22 +1,24 @@
 #include "Window.h"
-#include <ncurses.h>
+#include <string>
 
-Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow) {
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    start_color();
+
+    timeout(160);
+
+}
+
+Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
     initscr();
     cbreak();
     noecho();
     curs_set(0);
     start_color();
     timeout(160);
-}
-
-Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height) {
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-    start_color();
-    timeout(200);
 }
 
 Window::~Window() {
@@ -52,18 +54,16 @@ void Window::printBorder() {
 }
 
 void Window::printEntryWindow() {
-    int y=3+upperLeftCorner.y,x=upperLeftCorner.x+5;
+    int y=2+upperLeftCorner.y,x=upperLeftCorner.x+5;
     mvprintw(++y,x,"  _____             _        ");
     mvprintw(++y,x," / ____|           | |       ");
     mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
-    mvprintw(++y,x,"Press-'r' to start the game");
-    mvprintw(++y,x,"Press-'h' to get help");
-    mvprintw(++y,x,"Press-'p' to pause the game");
-    mvprintw(++y,x,"Press-'q' to quit the game");
-    mvprintw(++y,x,"WASD- let you move");
+    buttonStart.paint();
+    buttonHelp.paint();
+    buttonExit.paint();
 }
 void Window::printAfterGame(int level)
 {
@@ -88,15 +88,27 @@ void Window::moveWindow(enum direction dir)
     switch(dir){
         case up:
             upperLeftCorner.y--;
+            buttonStart.upperLeftCorner.y--;
+            buttonHelp.upperLeftCorner.y--;
+            buttonExit.upperLeftCorner.y--;
             break;
         case down:
             upperLeftCorner.y++;
+            buttonStart.upperLeftCorner.y++;
+            buttonHelp.upperLeftCorner.y++;
+            buttonExit.upperLeftCorner.y++;
             break;
         case left:
             upperLeftCorner.x--;
+            buttonStart.upperLeftCorner.x--;
+            buttonHelp.upperLeftCorner.x--;
+            buttonExit.upperLeftCorner.x--;
             break;
         case right:
             upperLeftCorner.x++;
+            buttonStart.upperLeftCorner.x++;
+            buttonHelp.upperLeftCorner.x++;
+            buttonExit.upperLeftCorner.x++;
             break;
     };
     clearWindow();
