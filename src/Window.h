@@ -8,6 +8,8 @@ class Window {
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
         Button buttonHelp,buttonStart,buttonBack,buttonExit;
+        int iColor;
+        bool iColorSide;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);

@@ -1,7 +1,7 @@
 #include "Window.h"
 #include <string>
 
-Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(true),iColor(0), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
     initscr();
 
     cbreak();
@@ -13,7 +13,7 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner), widthWindow(w
 
 }
 
-Window::Window(CPoint& corner, int width, int height): upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
+Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
     initscr();
     cbreak();
     noecho();
@@ -59,12 +59,24 @@ void Window::printEntryWindow() {
     string line1="  _____             _        ";
     int y=2+upperLeftCorner.y;
     int x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
+    init_color(15,0,300+iColor,0);
+    init_pair(6, 15, COLOR_BLACK);
+    iColorSide ? iColor=iColor+50 : iColor=iColor-50;
+    if(iColor>850){
+        iColorSide=false;
+    }
+    else if(iColor<50)
+    {
+        iColorSide=true;
+    }
+    attron(COLOR_PAIR(6));
     mvprintw(++y,x,line1.c_str());
     mvprintw(++y,x," / ____|           | |       ");
     mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
+    attroff(COLOR_PAIR(6));
     buttonStart.print();
     buttonHelp.print();
     buttonExit.print();
