@@ -1,5 +1,7 @@
 #include <ncurses.h>
+#include <string>
 #include "Button.h"
+using namespace std;
 enum direction{up,down,right,left};
 
 class Window {
@@ -7,7 +9,7 @@ class Window {
         public:
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
-        Button buttonHelp,buttonStart,buttonBack,buttonExit;
+        Button buttonHelp,buttonStart,buttonBack,buttonExit,buttonRestartAfterGame,buttonMenuAfterGame,buttonExitAfterGame;
         int iColor;
         bool iColorSide;
 
@@ -23,7 +25,7 @@ class Window {
         void printBackgroundForText(int width, int height, int y);
         void clearWindow();
         void moveWindow(enum direction dir);
-        void changePointedButton(enum direction dir);
-
+        void changePointedButtonBeforeGame(enum direction dir);
+        void changePointedButtonAfterGame(enum direction dir);
 
 };

@@ -1,7 +1,6 @@
 #include "Window.h"
-#include <string>
 
-Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(true),iColor(0), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(true),iColor(0), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false),buttonRestartAfterGame("Restart",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonMenuAfterGame("Menu",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExitAfterGame("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
     initscr();
 
     cbreak();
@@ -13,7 +12,7 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
 
 }
 
-Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,true),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,true) {
+Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,false),buttonRestartAfterGame("Restart",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonMenuAfterGame("Menu",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExitAfterGame("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false) {
     initscr();
     cbreak();
     noecho();
@@ -62,7 +61,7 @@ void Window::printEntryWindow() {
     init_color(15,0,300+iColor,0);
     init_pair(6, 15, COLOR_BLACK);
     iColorSide ? iColor=iColor+50 : iColor=iColor-50;
-    if(iColor>850){
+    if(iColor>750){
         iColorSide=false;
     }
     else if(iColor<50)
@@ -116,18 +115,18 @@ void Window::printAfterGame(int level)
 {
     init_color(COLOR_WHITE,500,500,500);
     init_pair(8, COLOR_BLACK, COLOR_WHITE);
-    string line1="Your final score is %d";
-    string line2="Press-'r' to restart the game";
-    string line3="Press-'q' to quit the game";
+    string line1="Your final score is ";
+    line1+=to_string(level);
     int y=upperLeftCorner.y+heightWindow/4;
     clearWindow();
     printBorder();
     attron(COLOR_PAIR(8));
-    printBackgroundForText(line2.size()+2,3+2,y);
-    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line1.size()/2,line1.c_str(),level);
-    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line2.size()/2,line2.c_str());
-    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line3.size()/2,line3.c_str());
+    printBackgroundForText(line1.size()+2,1+2,y);
+    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line1.size()/2,line1.c_str());
     attroff(COLOR_PAIR(8));
+    buttonRestartAfterGame.print();
+    buttonMenuAfterGame.print();
+    buttonExitAfterGame.print();
 }
 void Window::printBackgroundForText(int width, int height, int y) {
     for(int i=0;i<width;i++)
@@ -155,6 +154,9 @@ void Window::moveWindow(enum direction dir)
             buttonHelp.upperLeftCorner.y--;
             buttonExit.upperLeftCorner.y--;
             buttonBack.upperLeftCorner.y--;
+            buttonRestartAfterGame.upperLeftCorner.y--;
+            buttonMenuAfterGame.upperLeftCorner.y--;
+            buttonExitAfterGame.upperLeftCorner.y--;
             break;
         case down:
             upperLeftCorner.y++;
@@ -162,6 +164,9 @@ void Window::moveWindow(enum direction dir)
             buttonHelp.upperLeftCorner.y++;
             buttonExit.upperLeftCorner.y++;
             buttonBack.upperLeftCorner.y++;
+            buttonRestartAfterGame.upperLeftCorner.y++;
+            buttonMenuAfterGame.upperLeftCorner.y++;
+            buttonExitAfterGame.upperLeftCorner.y++;
             break;
         case left:
             upperLeftCorner.x--;
@@ -169,6 +174,9 @@ void Window::moveWindow(enum direction dir)
             buttonHelp.upperLeftCorner.x--;
             buttonExit.upperLeftCorner.x--;
             buttonBack.upperLeftCorner.x--;
+            buttonRestartAfterGame.upperLeftCorner.x--;
+            buttonMenuAfterGame.upperLeftCorner.x--;
+            buttonExitAfterGame.upperLeftCorner.x--;
             break;
         case right:
             upperLeftCorner.x++;
@@ -176,12 +184,15 @@ void Window::moveWindow(enum direction dir)
             buttonHelp.upperLeftCorner.x++;
             buttonExit.upperLeftCorner.x++;
             buttonBack.upperLeftCorner.x++;
+            buttonRestartAfterGame.upperLeftCorner.x++;
+            buttonMenuAfterGame.upperLeftCorner.x++;
+            buttonExitAfterGame.upperLeftCorner.x++;
             break;
     };
     clearWindow();
 }
 
-void Window::changePointedButton(enum direction dir) {
+void Window::changePointedButtonBeforeGame(enum direction dir) {
     switch(dir){
         case down:
             if(buttonStart.isPointed)
@@ -215,6 +226,44 @@ void Window::changePointedButton(enum direction dir) {
             {
                 buttonExit.isPointed=false;
                 buttonHelp.isPointed=true;
+            }
+            break;
+    };
+}
+void Window::changePointedButtonAfterGame(enum direction dir) {
+    switch(dir){
+        case down:
+            if(buttonRestartAfterGame.isPointed)
+            {
+                buttonRestartAfterGame.isPointed=false;
+                buttonMenuAfterGame.isPointed=true;
+            }
+            else if(buttonMenuAfterGame.isPointed)
+            {
+                buttonMenuAfterGame.isPointed=false;
+                buttonExitAfterGame.isPointed=true;
+            }
+            else if(buttonExitAfterGame.isPointed)
+            {
+                buttonExitAfterGame.isPointed=false;
+                buttonRestartAfterGame.isPointed=true;
+            }
+            break;
+        case up:
+            if(buttonRestartAfterGame.isPointed)
+            {
+                buttonRestartAfterGame.isPointed=false;
+                buttonExitAfterGame.isPointed=true;
+            }
+            else if(buttonMenuAfterGame.isPointed)
+            {
+                buttonMenuAfterGame.isPointed=false;
+                buttonRestartAfterGame.isPointed=true;
+            }
+            else if(buttonExitAfterGame.isPointed)
+            {
+                buttonExitAfterGame.isPointed=false;
+                buttonMenuAfterGame.isPointed=true;
             }
             break;
     };

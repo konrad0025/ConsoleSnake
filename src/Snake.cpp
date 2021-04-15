@@ -139,10 +139,10 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
         case 'q':
             return false;
         case KEY_UP:
-            gameWindow.changePointedButton(up);
+            gameWindow.changePointedButtonBeforeGame(up);
             return true;
         case KEY_DOWN:
-            gameWindow.changePointedButton(down);
+            gameWindow.changePointedButtonBeforeGame(down);
             return true;
         case '\n':
             if(gameWindow.buttonStart.isPointed) gameMode=game;
@@ -170,10 +170,6 @@ bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
 
 bool Snake::handleEventDuringAfterGameMode(int key) {
     switch(key){
-        case 'r':
-            gameMode=game;
-            restartGame();
-            return true;
         case 'w':
             gameWindow.moveWindow(up);
             return true;
@@ -185,6 +181,26 @@ bool Snake::handleEventDuringAfterGameMode(int key) {
             return true;
         case 'd':
             gameWindow.moveWindow(right);
+            return true;
+        case KEY_UP:
+            gameWindow.changePointedButtonAfterGame(up);
+            return true;
+        case KEY_DOWN:
+            gameWindow.changePointedButtonAfterGame(down);
+            return true;
+        case '\n':
+            if(gameWindow.buttonRestartAfterGame.isPointed) {
+                restartGame();
+                gameMode=game;
+            }
+            else if(gameWindow.buttonMenuAfterGame.isPointed) {
+                restartGame();
+                gameMode=beforeGame;
+            }
+            else if(gameWindow.buttonExitAfterGame.isPointed)
+            {
+                return false;
+            }
             return true;
         case 'q':
             return false;
