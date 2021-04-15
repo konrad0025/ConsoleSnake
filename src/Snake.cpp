@@ -310,9 +310,9 @@ void Snake::afterEat()
         while(!makeFood()){}
         if(level%5==0)
         {
-            if(level<75)
+            if(level<65)
             {
-                timeout(200-level*2);
+                timeout(160-level*2);
             }
 
         }
@@ -341,7 +341,7 @@ void Snake::restartGame()
     snakePosition.push_back(CPoint(12,10));
     level=0;
     dir=left;
-    timeout(200);
+    timeout(160);
     while(!makeFood()){}
 }
 

@@ -93,14 +93,7 @@ void Window::printEntryHelpInfo() {
     string line5="WASD- let you move";
     attron(COLOR_PAIR(3));
     int y=(upperLeftCorner.y+heightWindow/2)-6;
-    for(int i=0;i<line2.size()+2;i++)
-    {
-        for(int j=0;j<5+2;j++)
-        {
-            mvprintw(y+j,upperLeftCorner.x+widthWindow/2-line2.size()/2+i-1," ");
-        }
-    }
-
+    printBackgroundForText(line2.size()+2,5+2,y);
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line1.size()/2,line1.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line2.size()/2,line2.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line3.size()/2,line3.c_str());
@@ -115,26 +108,36 @@ void Window::printPause() {
     string line1 ="Press-'p' to unpause";
     int y=upperLeftCorner.y+2,x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
     attron(COLOR_PAIR(3));
-    for(int i=0;i<line1.size()+2;i++)
-    {
-        for(int j=0;j<1;j++)
-        {
-            mvprintw(y+j,upperLeftCorner.x+widthWindow/2-line1.size()/2+i-1," ");
-        }
-    }
+    printBackgroundForText(line1.size()+2,1,y);
     mvprintw(y,x,line1.c_str());
     attroff(COLOR_PAIR(3));
 }
 void Window::printAfterGame(int level)
 {
-    int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;
+    init_color(COLOR_WHITE,500,500,500);
+    init_pair(8, COLOR_BLACK, COLOR_WHITE);
+    string line1="Your final score is %d";
+    string line2="Press-'r' to restart the game";
+    string line3="Press-'q' to quit the game";
+    int y=upperLeftCorner.y+heightWindow/4;
     clearWindow();
     printBorder();
-    mvprintw(++y,x,"Your final score is %d",level);
-    mvprintw(++y,x,"Press-'r' to restart the game");
-    mvprintw(++y,x,"Press-'q' to quit the game");
+    attron(COLOR_PAIR(8));
+    printBackgroundForText(line2.size()+2,3+2,y);
+    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line1.size()/2,line1.c_str(),level);
+    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line2.size()/2,line2.c_str());
+    mvprintw(++y,upperLeftCorner.x+widthWindow/2-line3.size()/2,line3.c_str());
+    attroff(COLOR_PAIR(8));
 }
-
+void Window::printBackgroundForText(int width, int height, int y) {
+    for(int i=0;i<width;i++)
+    {
+        for(int j=0;j<height;j++)
+        {
+            mvprintw(y+j,upperLeftCorner.x+widthWindow/2-width/2+i," ");
+        }
+    }
+}
 void Window::clearWindow()
 {
     for(int i=0;i<LINES;i++)
