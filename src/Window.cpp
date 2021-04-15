@@ -109,7 +109,22 @@ void Window::printEntryHelpInfo() {
     attroff(COLOR_PAIR(3));
     buttonBack.print();
 }
-
+void Window::printPause() {
+    init_color(COLOR_WHITE,500,500,500);
+    init_pair(3, COLOR_BLACK, COLOR_WHITE);
+    string line1 ="Press-'p' to unpause";
+    int y=upperLeftCorner.y+2,x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
+    attron(COLOR_PAIR(3));
+    for(int i=0;i<line1.size()+2;i++)
+    {
+        for(int j=0;j<1;j++)
+        {
+            mvprintw(y+j,upperLeftCorner.x+widthWindow/2-line1.size()/2+i-1," ");
+        }
+    }
+    mvprintw(y,x,line1.c_str());
+    attroff(COLOR_PAIR(3));
+}
 void Window::printAfterGame(int level)
 {
     int y=5+upperLeftCorner.y,x=upperLeftCorner.x+3;

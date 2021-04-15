@@ -52,21 +52,6 @@ void Snake::printLevelInfo() {
     attroff(COLOR_PAIR(3));
 }
 
-void Snake::printPause() {
-    int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
-    mvprintw(++y,x,"Press-'p' to get back to the game");
-    mvprintw(++y,x,"Press-'r' to start the game");
-}
-
-void Snake::printHelp() {
-    int y=5+gameWindow.upperLeftCorner.y,x=gameWindow.upperLeftCorner.x+3;
-    mvprintw(++y,x,"Press-'r' to restart the game");
-    mvprintw(++y,x,"Press-'h' to get help");
-    mvprintw(++y,x,"Press-'p' to pause the game");
-    mvprintw(++y,x,"Press-'q' to quit the game");
-    mvprintw(++y,x,"WASD- let you move");
-}
-
 bool Snake::handleEvent(int key) {
 
     switch (gameMode){
@@ -243,17 +228,8 @@ bool Snake::handleEventDuringHelpMode(int key) {
             gameMode=game;
             restartGame();
             return true;
-        case 'w':
-            gameWindow.moveWindow(up);
-            return true;
-        case 's':
-            gameWindow.moveWindow(down);
-            return true;
-        case 'a':
-            gameWindow.moveWindow(left);
-            return true;
-        case 'd':
-            gameWindow.moveWindow(right);
+        case '\n':
+            gameMode=game;
             return true;
         case 'q':
             return false;
@@ -392,11 +368,11 @@ void Snake::gameLoop() {
                 break;
             case pause:
                 print();
-                printPause();
+                gameWindow.printPause();
                 break;
             case help:
                 print();
-                printHelp();
+                gameWindow.printEntryHelpInfo();
                 break;
             case afterGame:
                 gameWindow.printAfterGame(level);

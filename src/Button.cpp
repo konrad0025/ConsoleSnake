@@ -6,9 +6,9 @@ void Button::print() {
     init_color(COLOR_WHITE,500,500,500);
     init_color(11,1000,1000,1000);
     init_pair(3, COLOR_BLACK, COLOR_WHITE);
-    init_pair(5, COLOR_BLACK, 11);
+    init_pair(7, COLOR_BLACK, 11);
 
-    isPointed ? attron(COLOR_PAIR(5)) : attron(COLOR_PAIR(3));
+    isPointed ? attron(COLOR_PAIR(7)) : attron(COLOR_PAIR(3));
     for(int i=0;i<buttonWidth;i++)
     {
         for(int j=0;j<buttonHeight;j++)
@@ -17,5 +17,5 @@ void Button::print() {
         }
     }
     mvprintw(upperLeftCorner.y,upperLeftCorner.x+(buttonWidth/2)-(text.size()/2),text.c_str());
-    isPointed ? attroff(COLOR_PAIR(5)) : attroff(COLOR_PAIR(3));
+    isPointed ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
 }
