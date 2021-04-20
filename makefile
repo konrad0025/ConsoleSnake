@@ -24,3 +24,5 @@ $(OBJ)/CPoint.o: $(SRC)/CPoint.cpp $(SRC)/CPoint.h
 
 clean:
 	-rm -r $(OBJ)/*.o ConsoleSnake obj
+install:
+	sudo apt-get install g++ libncurses5-dev
