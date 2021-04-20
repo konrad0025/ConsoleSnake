@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <string>
+#include <map>
 #include "Button.h"
 using namespace std;
 enum direction{up,down,right,left};
@@ -9,9 +10,12 @@ class Window {
         public:
         CPoint upperLeftCorner;
         int widthWindow,heightWindow;
-        Button buttonHelp,buttonStart,buttonBack,buttonExit,buttonRestartAfterGame,buttonMenuAfterGame,buttonExitAfterGame;
         int iColor;
         bool iColorSide;
+        Button button;
+        map<string, int> menuButtons;
+        map<string, int> afterGameButtons;
+        int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);

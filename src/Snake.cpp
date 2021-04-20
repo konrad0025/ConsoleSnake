@@ -145,9 +145,9 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             gameWindow.changePointedButtonBeforeGame(down);
             return true;
         case '\n':
-            if(gameWindow.buttonStart.isPointed) gameMode=game;
-            else if(gameWindow.buttonHelp.isPointed) gameMode=helpBeforeGame;
-            else if(gameWindow.buttonExit.isPointed)
+            if(gameWindow.whichOneInMenuIsPointed==0) gameMode=game;
+            else if(gameWindow.whichOneInMenuIsPointed==1) gameMode=helpBeforeGame;
+            else if(gameWindow.whichOneInMenuIsPointed==2)
             {
                 return false;
             }
@@ -189,15 +189,15 @@ bool Snake::handleEventDuringAfterGameMode(int key) {
             gameWindow.changePointedButtonAfterGame(down);
             return true;
         case '\n':
-            if(gameWindow.buttonRestartAfterGame.isPointed) {
+            if(gameWindow.whichOneInAfterGameIsPointed==0) {
                 restartGame();
                 gameMode=game;
             }
-            else if(gameWindow.buttonMenuAfterGame.isPointed) {
+            else if(gameWindow.whichOneInAfterGameIsPointed==1) {
                 restartGame();
                 gameMode=beforeGame;
             }
-            else if(gameWindow.buttonExitAfterGame.isPointed)
+            else if(gameWindow.whichOneInAfterGameIsPointed==2)
             {
                 return false;
             }

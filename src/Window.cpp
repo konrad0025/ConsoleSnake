@@ -1,18 +1,25 @@
 #include "Window.h"
 
-Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(true),iColor(0), widthWindow(win.widthWindow),heightWindow(win.heightWindow),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false),buttonRestartAfterGame("Restart",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonMenuAfterGame("Menu",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExitAfterGame("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false){
+Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(true),iColor(0), widthWindow(win.widthWindow),heightWindow(win.heightWindow),button(CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1){
     initscr();
-
     cbreak();
     noecho();
     curs_set(0);
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
+    menuButtons["Start"]=1;
+    menuButtons["Help"]=3;
+    menuButtons["Exit"]=5;
+    whichOneInMenuIsPointed=0;
+    afterGameButtons["Restart"]=1;
+    afterGameButtons["Menu"]=3;
+    afterGameButtons["Exit"]=5;
+    whichOneInAfterGameIsPointed=0;
 
 }
 
-Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),buttonStart("Start",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,3,true),buttonBack("Back",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow*3/4)),widthWindow/2,1,true), buttonHelp("Help",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-3),widthWindow/2,3,false),buttonExit("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)-6),widthWindow/2,3,false),buttonRestartAfterGame("Restart",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1,true),buttonMenuAfterGame("Menu",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+2),widthWindow/2,1,false),buttonExitAfterGame("Exit",CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)+4),widthWindow/2,1,false) {
+Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),button(CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1) {
     initscr();
     cbreak();
     noecho();
@@ -20,6 +27,14 @@ Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
+    menuButtons["Start"]=1;
+    menuButtons["Help"]=3;
+    menuButtons["Exit"]=5;
+    whichOneInMenuIsPointed=0;
+    afterGameButtons["Restart"]=1;
+    afterGameButtons["Menu"]=3;
+    afterGameButtons["Exit"]=5;
+    whichOneInAfterGameIsPointed=0;
 }
 
 Window::~Window() {
@@ -76,9 +91,7 @@ void Window::printEntryWindow() {
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
     attroff(COLOR_PAIR(6));
-    buttonStart.print();
-    buttonHelp.print();
-    buttonExit.print();
+    button.printMap(menuButtons,whichOneInMenuIsPointed);
 }
 
 void Window::printEntryHelpInfo() {
@@ -99,7 +112,7 @@ void Window::printEntryHelpInfo() {
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line4.size()/2,line4.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line5.size()/2,line5.c_str());
     attroff(COLOR_PAIR(3));
-    buttonBack.print();
+    button.printButton("Back",true,heightWindow/4);
 }
 void Window::printPause() {
     init_color(COLOR_WHITE,500,500,500);
@@ -124,9 +137,7 @@ void Window::printAfterGame(int level)
     printBackgroundForText(line1.size()+2,1+2,y);
     mvprintw(++y,upperLeftCorner.x+widthWindow/2-line1.size()/2,line1.c_str());
     attroff(COLOR_PAIR(8));
-    buttonRestartAfterGame.print();
-    buttonMenuAfterGame.print();
-    buttonExitAfterGame.print();
+    button.printMap(afterGameButtons,whichOneInAfterGameIsPointed);
 }
 void Window::printBackgroundForText(int width, int height, int y) {
     for(int i=0;i<width;i++)
@@ -150,43 +161,19 @@ void Window::moveWindow(enum direction dir)
     switch(dir){
         case up:
             upperLeftCorner.y--;
-            buttonStart.upperLeftCorner.y--;
-            buttonHelp.upperLeftCorner.y--;
-            buttonExit.upperLeftCorner.y--;
-            buttonBack.upperLeftCorner.y--;
-            buttonRestartAfterGame.upperLeftCorner.y--;
-            buttonMenuAfterGame.upperLeftCorner.y--;
-            buttonExitAfterGame.upperLeftCorner.y--;
+            button.upperLeftCorner.y--;
             break;
         case down:
             upperLeftCorner.y++;
-            buttonStart.upperLeftCorner.y++;
-            buttonHelp.upperLeftCorner.y++;
-            buttonExit.upperLeftCorner.y++;
-            buttonBack.upperLeftCorner.y++;
-            buttonRestartAfterGame.upperLeftCorner.y++;
-            buttonMenuAfterGame.upperLeftCorner.y++;
-            buttonExitAfterGame.upperLeftCorner.y++;
+            button.upperLeftCorner.y++;
             break;
         case left:
             upperLeftCorner.x--;
-            buttonStart.upperLeftCorner.x--;
-            buttonHelp.upperLeftCorner.x--;
-            buttonExit.upperLeftCorner.x--;
-            buttonBack.upperLeftCorner.x--;
-            buttonRestartAfterGame.upperLeftCorner.x--;
-            buttonMenuAfterGame.upperLeftCorner.x--;
-            buttonExitAfterGame.upperLeftCorner.x--;
+            button.upperLeftCorner.x--;
             break;
         case right:
             upperLeftCorner.x++;
-            buttonStart.upperLeftCorner.x++;
-            buttonHelp.upperLeftCorner.x++;
-            buttonExit.upperLeftCorner.x++;
-            buttonBack.upperLeftCorner.x++;
-            buttonRestartAfterGame.upperLeftCorner.x++;
-            buttonMenuAfterGame.upperLeftCorner.x++;
-            buttonExitAfterGame.upperLeftCorner.x++;
+            button.upperLeftCorner.x++;
             break;
     };
     clearWindow();
@@ -195,76 +182,20 @@ void Window::moveWindow(enum direction dir)
 void Window::changePointedButtonBeforeGame(enum direction dir) {
     switch(dir){
         case down:
-            if(buttonStart.isPointed)
-            {
-                buttonStart.isPointed=false;
-                buttonHelp.isPointed=true;
-            }
-            else if(buttonHelp.isPointed)
-            {
-                buttonHelp.isPointed=false;
-                buttonExit.isPointed=true;
-            }
-            else if(buttonExit.isPointed)
-            {
-                buttonExit.isPointed=false;
-                buttonStart.isPointed=true;
-            }
+            (whichOneInMenuIsPointed>=menuButtons.size()-1) ? (whichOneInMenuIsPointed=0):(whichOneInMenuIsPointed++);
             break;
         case up:
-            if(buttonStart.isPointed)
-            {
-                buttonStart.isPointed=false;
-                buttonExit.isPointed=true;
-            }
-            else if(buttonHelp.isPointed)
-            {
-                buttonHelp.isPointed=false;
-                buttonStart.isPointed=true;
-            }
-            else if(buttonExit.isPointed)
-            {
-                buttonExit.isPointed=false;
-                buttonHelp.isPointed=true;
-            }
+            (whichOneInMenuIsPointed<=0) ? (whichOneInMenuIsPointed=menuButtons.size()-1):(whichOneInMenuIsPointed--) ;
             break;
     };
 }
 void Window::changePointedButtonAfterGame(enum direction dir) {
     switch(dir){
         case down:
-            if(buttonRestartAfterGame.isPointed)
-            {
-                buttonRestartAfterGame.isPointed=false;
-                buttonMenuAfterGame.isPointed=true;
-            }
-            else if(buttonMenuAfterGame.isPointed)
-            {
-                buttonMenuAfterGame.isPointed=false;
-                buttonExitAfterGame.isPointed=true;
-            }
-            else if(buttonExitAfterGame.isPointed)
-            {
-                buttonExitAfterGame.isPointed=false;
-                buttonRestartAfterGame.isPointed=true;
-            }
+            (whichOneInAfterGameIsPointed>=afterGameButtons.size()-1) ? (whichOneInAfterGameIsPointed=0):(whichOneInAfterGameIsPointed++);
             break;
         case up:
-            if(buttonRestartAfterGame.isPointed)
-            {
-                buttonRestartAfterGame.isPointed=false;
-                buttonExitAfterGame.isPointed=true;
-            }
-            else if(buttonMenuAfterGame.isPointed)
-            {
-                buttonMenuAfterGame.isPointed=false;
-                buttonRestartAfterGame.isPointed=true;
-            }
-            else if(buttonExitAfterGame.isPointed)
-            {
-                buttonExitAfterGame.isPointed=false;
-                buttonMenuAfterGame.isPointed=true;
-            }
+            (whichOneInAfterGameIsPointed<=0) ? (whichOneInAfterGameIsPointed=afterGameButtons.size()-1):(whichOneInAfterGameIsPointed--) ;
             break;
     };
 }

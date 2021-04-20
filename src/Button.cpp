@@ -1,8 +1,8 @@
 #include "Button.h"
 
-Button::Button(string text, CPoint corner, int width, int height,bool isPointed): text(text),upperLeftCorner(corner),buttonWidth(width),buttonHeight(height),isPointed(isPointed) {}
+Button::Button(CPoint corner, int width, int height): upperLeftCorner(corner),buttonWidth(width),buttonHeight(height) {}
 
-void Button::print() {
+void Button::printButton(string textOnButton, bool isPointed, int y) {
     init_color(COLOR_WHITE,500,500,500);
     init_color(11,1000,1000,1000);
     init_pair(3, COLOR_BLACK, COLOR_WHITE);
@@ -13,26 +13,18 @@ void Button::print() {
     {
         for(int j=0;j<buttonHeight;j++)
         {
-            mvprintw(upperLeftCorner.y+j,upperLeftCorner.x+i," ");
-        }
-    }
-    mvprintw(upperLeftCorner.y,upperLeftCorner.x+(buttonWidth/2)-(text.size()/2),text.c_str());
-    isPointed ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
-}
-void Button::newPrint(string textOnButton, bool isPointed1, int y) {
-    init_color(COLOR_WHITE,500,500,500);
-    init_color(11,1000,1000,1000);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
-    init_pair(7, COLOR_BLACK, 11);
-
-    isPointed1 ? attron(COLOR_PAIR(7)) : attron(COLOR_PAIR(3));
-    for(int i=0;i<buttonWidth;i++)
-    {
-        for(int j=0;j<buttonHeight;j++)
-        {
             mvprintw(upperLeftCorner.y+j+y,upperLeftCorner.x+i," ");
         }
     }
     mvprintw(upperLeftCorner.y+y,upperLeftCorner.x+(buttonWidth/2)-(textOnButton.size()/2),textOnButton.c_str());
-    isPointed1 ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
+    isPointed ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
+}
+
+void Button::printMap(map<string, int> buttonMap, int whichOneIsPointed) {
+    int i=buttonMap.size()-1;
+    for(auto& x: buttonMap)
+    {
+        (i==whichOneIsPointed) ? printButton(x.first,true,x.second):printButton(x.first,false,x.second);
+        i--;
+    }
 }
