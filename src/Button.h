@@ -11,5 +11,7 @@ class Button {
 
         Button(string text,CPoint corner,int width,int height,bool isPointed);
         void print();
+        void newPrint(string textOnButton,bool isPointed1,int y);
+
 
 };
