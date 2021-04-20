@@ -29,7 +29,6 @@ class Window {
         void printBackgroundForText(int width, int height, int y);
         void clearWindow();
         void moveWindow(enum direction dir);
-        void changePointedButtonBeforeGame(enum direction dir);
-        void changePointedButtonAfterGame(enum direction dir);
+        void changeWhichButtonIsPointed(enum direction dir, const map<string,int> &mapButton, int &whichOneIsPointed);
 
 };

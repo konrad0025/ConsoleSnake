@@ -178,24 +178,14 @@ void Window::moveWindow(enum direction dir)
     };
     clearWindow();
 }
-
-void Window::changePointedButtonBeforeGame(enum direction dir) {
+void Window::changeWhichButtonIsPointed(enum direction dir,const map<string,int> &mapButton , int &whichOneIsPointed)
+{
     switch(dir){
         case down:
-            (whichOneInMenuIsPointed>=menuButtons.size()-1) ? (whichOneInMenuIsPointed=0):(whichOneInMenuIsPointed++);
+            (whichOneIsPointed>=mapButton.size()-1) ? (whichOneIsPointed=0):(whichOneIsPointed++);
             break;
         case up:
-            (whichOneInMenuIsPointed<=0) ? (whichOneInMenuIsPointed=menuButtons.size()-1):(whichOneInMenuIsPointed--) ;
-            break;
-    };
-}
-void Window::changePointedButtonAfterGame(enum direction dir) {
-    switch(dir){
-        case down:
-            (whichOneInAfterGameIsPointed>=afterGameButtons.size()-1) ? (whichOneInAfterGameIsPointed=0):(whichOneInAfterGameIsPointed++);
-            break;
-        case up:
-            (whichOneInAfterGameIsPointed<=0) ? (whichOneInAfterGameIsPointed=afterGameButtons.size()-1):(whichOneInAfterGameIsPointed--) ;
+            (whichOneIsPointed<=0) ? (whichOneIsPointed=mapButton.size()-1):(whichOneIsPointed--) ;
             break;
     };
 }
