@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum mode{beforeGame,helpBeforeGame,game,afterGame,help,pause};
+enum mode{beforeGame,helpBeforeGame,settings,game,afterGame,help,pause};
 
 class Snake {
     private:
@@ -28,6 +28,7 @@ class Snake {
         bool handleEvent(int key);
         bool handleEventDuringGameMode(int key);
         bool handleEventDuringBeforeGameMode(int key);
+        bool handleEventDuringSettingsMode(int key);
         bool handleEventDuringHelpBeforeGameMode(int key);
         bool handleEventDuringAfterGameMode(int key);
         bool handleEventDuringPauseMode(int key);

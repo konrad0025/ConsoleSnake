@@ -15,7 +15,8 @@ class Window {
         Button button;
         map<string, int> menuButtons;
         map<string, int> afterGameButtons;
-        int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed;
+        map<string, int> settingsButtons;
+        int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed,whichOneInSettingsIsPointed;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);
@@ -23,6 +24,7 @@ class Window {
         int getEvent();
         void printBorder();
         void printEntryWindow();
+        void printSettings();
         void printAfterGame(int level);
         void printEntryHelpInfo();
         void printPause();

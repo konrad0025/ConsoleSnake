@@ -9,13 +9,19 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
     keypad(stdscr, TRUE);
     timeout(160);
     menuButtons["Start"]=1;
-    menuButtons["Help"]=3;
-    menuButtons["Exit"]=5;
+    menuButtons["Settings"]=3;
+    menuButtons["Help"]=5;
+    menuButtons["Exit"]=7;
     whichOneInMenuIsPointed=0;
     afterGameButtons["Restart"]=1;
     afterGameButtons["Menu"]=3;
     afterGameButtons["Exit"]=5;
     whichOneInAfterGameIsPointed=0;
+    settingsButtons["position"]=1;
+    settingsButtons["Size"]=3;
+    settingsButtons["color"]=5;
+    settingsButtons["Back"]=7;
+    whichOneInSettingsIsPointed=0;
 
 }
 
@@ -35,6 +41,12 @@ Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0
     afterGameButtons["Menu"]=3;
     afterGameButtons["Exit"]=5;
     whichOneInAfterGameIsPointed=0;
+    settingsButtons["position"]=1;
+    settingsButtons["Size"]=3;
+    settingsButtons["color"]=5;
+    settingsButtons["Back"]=7;
+
+    whichOneInSettingsIsPointed=0;
 }
 
 Window::~Window() {
@@ -92,6 +104,10 @@ void Window::printEntryWindow() {
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
     attroff(COLOR_PAIR(6));
     button.printMap(menuButtons,whichOneInMenuIsPointed);
+}
+
+void Window::printSettings(){
+    button.printMap(settingsButtons,whichOneInSettingsIsPointed);
 }
 
 void Window::printEntryHelpInfo() {

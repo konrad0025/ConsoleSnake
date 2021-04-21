@@ -21,10 +21,8 @@ void Button::printButton(string textOnButton, bool isPointed, int y) {
 }
 
 void Button::printMap(map<string, int> buttonMap, int whichOneIsPointed) {
-    int i=buttonMap.size()-1;
     for(auto& x: buttonMap)
     {
-        (i==whichOneIsPointed) ? printButton(x.first,true,x.second):printButton(x.first,false,x.second);
-        i--;
+        (x.second==(whichOneIsPointed*2+1))? printButton(x.first,true,x.second):printButton(x.first,false,x.second);
     }
 }

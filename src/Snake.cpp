@@ -57,6 +57,8 @@ bool Snake::handleEvent(int key) {
     switch (gameMode){
         case beforeGame:
             return handleEventDuringBeforeGameMode(key);
+        case settings:
+            return handleEventDuringSettingsMode(key);
         case helpBeforeGame:
             return handleEventDuringHelpBeforeGameMode(key);
         case game:
@@ -146,14 +148,36 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             return true;
         case '\n':
             if(gameWindow.whichOneInMenuIsPointed==0) gameMode=game;
-            else if(gameWindow.whichOneInMenuIsPointed==1) gameMode=helpBeforeGame;
-            else if(gameWindow.whichOneInMenuIsPointed==2)
+            else if(gameWindow.whichOneInMenuIsPointed==1) gameMode=settings;
+            else if(gameWindow.whichOneInMenuIsPointed==2) gameMode=helpBeforeGame;
+            else if(gameWindow.whichOneInMenuIsPointed==3)
             {
                 return false;
             }
             return true;
     };
     return true;
+}
+
+bool Snake::handleEventDuringSettingsMode(int key) {
+    switch(key){
+        case '\n':
+            if(gameWindow.whichOneInSettingsIsPointed==0) return true;
+            else if(gameWindow.whichOneInSettingsIsPointed==1) return true;
+            else if(gameWindow.whichOneInSettingsIsPointed==2) return true;
+            else if(gameWindow.whichOneInSettingsIsPointed==3) gameMode=beforeGame;
+            return true;
+        case KEY_UP:
+            gameWindow.changeWhichButtonIsPointed(up,gameWindow.settingsButtons,gameWindow.whichOneInSettingsIsPointed);
+            return true;
+        case KEY_DOWN:
+            gameWindow.changeWhichButtonIsPointed(down,gameWindow.settingsButtons,gameWindow.whichOneInSettingsIsPointed);
+            return true;
+        case 'q':
+            return false;
+    }
+    return true;
+
 }
 
 bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
@@ -369,6 +393,9 @@ void Snake::gameLoop() {
         switch (gameMode) {
             case beforeGame:
                 gameWindow.printEntryWindow();
+                break;
+            case settings:
+                gameWindow.printSettings();
                 break;
             case helpBeforeGame:
                 gameWindow.printEntryHelpInfo();
