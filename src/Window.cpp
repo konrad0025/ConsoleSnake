@@ -8,19 +8,20 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
-    menuButtons["Start"]=1;
-    menuButtons["Settings"]=3;
-    menuButtons["Help"]=5;
-    menuButtons["Exit"]=7;
+
+    menuButtons.push_back(pair<string,int>("Start",1));
+    menuButtons.push_back(pair<string,int>("Settings",3));
+    menuButtons.push_back(pair<string,int>("Help",5));
+    menuButtons.push_back(pair<string,int>("Exit",7));
     whichOneInMenuIsPointed=0;
-    afterGameButtons["Restart"]=1;
-    afterGameButtons["Menu"]=3;
-    afterGameButtons["Exit"]=5;
+    afterGameButtons.push_back(pair<string,int>("Restart",1));
+    afterGameButtons.push_back(pair<string,int>("Menu",3));
+    afterGameButtons.push_back(pair<string,int>("Exit",5));
     whichOneInAfterGameIsPointed=0;
-    settingsButtons["position"]=1;
-    settingsButtons["Size"]=3;
-    settingsButtons["color"]=5;
-    settingsButtons["Back"]=7;
+    settingsButtons.push_back(pair<string,int>("Window position",1));
+    settingsButtons.push_back(pair<string,int>("Window Size",3));
+    settingsButtons.push_back(pair<string,int>("Snake Color",5));
+    settingsButtons.push_back(pair<string,int>("Back",7));
     whichOneInSettingsIsPointed=0;
 
 }
@@ -33,19 +34,19 @@ Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
-    menuButtons["Start"]=1;
-    menuButtons["Help"]=3;
-    menuButtons["Exit"]=5;
+    menuButtons.push_back(pair<string,int>("Start",1));
+    menuButtons.push_back(pair<string,int>("Settings",3));
+    menuButtons.push_back(pair<string,int>("Help",5));
+    menuButtons.push_back(pair<string,int>("Exit",7));
     whichOneInMenuIsPointed=0;
-    afterGameButtons["Restart"]=1;
-    afterGameButtons["Menu"]=3;
-    afterGameButtons["Exit"]=5;
+    afterGameButtons.push_back(pair<string,int>("Restart",1));
+    afterGameButtons.push_back(pair<string,int>("Menu",3));
+    afterGameButtons.push_back(pair<string,int>("Exit",5));
     whichOneInAfterGameIsPointed=0;
-    settingsButtons["position"]=1;
-    settingsButtons["Size"]=3;
-    settingsButtons["color"]=5;
-    settingsButtons["Back"]=7;
-
+    settingsButtons.push_back(pair<string,int>("Window position",1));
+    settingsButtons.push_back(pair<string,int>("Window Size",3));
+    settingsButtons.push_back(pair<string,int>("Snake Color",5));
+    settingsButtons.push_back(pair<string,int>("Back",7));
     whichOneInSettingsIsPointed=0;
 }
 
@@ -194,7 +195,7 @@ void Window::moveWindow(enum direction dir)
     };
     clearWindow();
 }
-void Window::changeWhichButtonIsPointed(enum direction dir,const map<string,int> &mapButton , int &whichOneIsPointed)
+void Window::changeWhichButtonIsPointed(enum direction dir,const vector<pair<string,int>> &mapButton , int &whichOneIsPointed)
 {
     switch(dir){
         case down:

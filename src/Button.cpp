@@ -20,9 +20,11 @@ void Button::printButton(string textOnButton, bool isPointed, int y) {
     isPointed ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
 }
 
-void Button::printMap(map<string, int> buttonMap, int whichOneIsPointed) {
-    for(auto& x: buttonMap)
+void Button::printMap(vector<pair<string,int>> vector, int whichOneIsPointed) {
+    int i=0;
+    for(auto& x: vector)
     {
-        (x.second==(whichOneIsPointed*2+1))? printButton(x.first,true,x.second):printButton(x.first,false,x.second);
+        (whichOneIsPointed==i)? printButton(x.first,true,x.second):printButton(x.first,false,x.second);
+        i++;
     }
 }

@@ -148,7 +148,10 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             return true;
         case '\n':
             if(gameWindow.whichOneInMenuIsPointed==0) gameMode=game;
-            else if(gameWindow.whichOneInMenuIsPointed==1) gameMode=settings;
+            else if(gameWindow.whichOneInMenuIsPointed==1) {
+                gameMode=settings;
+                gameWindow.whichOneInSettingsIsPointed=0;
+            }
             else if(gameWindow.whichOneInMenuIsPointed==2) gameMode=helpBeforeGame;
             else if(gameWindow.whichOneInMenuIsPointed==3)
             {

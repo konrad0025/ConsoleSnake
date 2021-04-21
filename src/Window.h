@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <string>
 #include <map>
+#include <vector>
 #include "Button.h"
 using namespace std;
 enum direction{up,down,right,left};
@@ -13,9 +14,9 @@ class Window {
         int iColor;
         bool iColorSide;
         Button button;
-        map<string, int> menuButtons;
-        map<string, int> afterGameButtons;
-        map<string, int> settingsButtons;
+        vector<pair<string,int>> menuButtons;
+        vector<pair<string,int>> afterGameButtons;
+        vector<pair<string,int>> settingsButtons;
         int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed,whichOneInSettingsIsPointed;
 
         Window(Window &win);
@@ -31,6 +32,6 @@ class Window {
         void printBackgroundForText(int width, int height, int y);
         void clearWindow();
         void moveWindow(enum direction dir);
-        void changeWhichButtonIsPointed(enum direction dir, const map<string,int> &mapButton, int &whichOneIsPointed);
+        void changeWhichButtonIsPointed(enum direction dir, const vector<pair<string,int>> &mapButton, int &whichOneIsPointed);
 
 };

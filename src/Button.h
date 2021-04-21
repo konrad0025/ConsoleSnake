@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <string>
 #include <map>
+#include <vector>
 #include "CPoint.h"
 using namespace std;
 class Button {
@@ -11,6 +12,5 @@ class Button {
 
         Button(CPoint corner,int width,int height);
         void printButton(string textOnButton, bool isPointed, int y);
-        void printMap(map<string,int> buttonMap, int whichOneIsPointed);
-
+        void printMap(vector<pair<string,int>> buttonMap, int whichOneIsPointed);
 };
