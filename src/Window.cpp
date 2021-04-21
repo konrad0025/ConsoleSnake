@@ -110,7 +110,9 @@ void Window::printEntryWindow() {
 void Window::printSettings(){
     button.printMap(settingsButtons,whichOneInSettingsIsPointed);
 }
-
+void Window::printSettingsPosition() {
+    button.printButton("Back",true,heightWindow/4);
+}
 void Window::printEntryHelpInfo() {
 
     init_color(COLOR_WHITE,500,500,500);

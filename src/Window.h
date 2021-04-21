@@ -26,6 +26,7 @@ class Window {
         void printBorder();
         void printEntryWindow();
         void printSettings();
+        void printSettingsPosition();
         void printAfterGame(int level);
         void printEntryHelpInfo();
         void printPause();

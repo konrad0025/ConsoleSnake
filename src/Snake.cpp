@@ -59,6 +59,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringBeforeGameMode(key);
         case settings:
             return handleEventDuringSettingsMode(key);
+        case settingsPosition:
+            return handleEventDuringSettingsPositionMode(key);
         case helpBeforeGame:
             return handleEventDuringHelpBeforeGameMode(key);
         case game:
@@ -105,6 +107,34 @@ bool Snake::handleEventDuringGameMode(int key)
             }
             dir=left;
             return true;
+        case KEY_UP:
+            if(dir==down)
+            {
+                break;
+            }
+            dir=up;
+            return true;
+        case KEY_DOWN:
+            if(dir==up)
+            {
+                break;
+            }
+            dir=down;
+            return true;
+        case KEY_RIGHT:
+            if(dir==left)
+            {
+                break;
+            }
+            dir=right;
+            return true;
+        case KEY_LEFT:
+            if(dir==right)
+            {
+                break;
+            }
+            dir=left;
+            return true;
         case 'r':
             gameMode=game;
             restartGame();
@@ -123,21 +153,6 @@ bool Snake::handleEventDuringGameMode(int key)
 
 bool Snake::handleEventDuringBeforeGameMode(int key) {
     switch(key){
-        case 'r':
-            gameMode=game;
-            return true;
-        case 'w':
-            gameWindow.moveWindow(up);
-            return true;
-        case 's':
-            gameWindow.moveWindow(down);
-            return true;
-        case 'a':
-            gameWindow.moveWindow(left);
-            return true;
-        case 'd':
-            gameWindow.moveWindow(right);
-            return true;
         case 'q':
             return false;
         case KEY_UP:
@@ -165,7 +180,7 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
 bool Snake::handleEventDuringSettingsMode(int key) {
     switch(key){
         case '\n':
-            if(gameWindow.whichOneInSettingsIsPointed==0) return true;
+            if(gameWindow.whichOneInSettingsIsPointed==0) gameMode=settingsPosition;
             else if(gameWindow.whichOneInSettingsIsPointed==1) return true;
             else if(gameWindow.whichOneInSettingsIsPointed==2) return true;
             else if(gameWindow.whichOneInSettingsIsPointed==3) gameMode=beforeGame;
@@ -182,7 +197,28 @@ bool Snake::handleEventDuringSettingsMode(int key) {
     return true;
 
 }
-
+bool Snake::handleEventDuringSettingsPositionMode(int key) {
+    switch(key){
+        case KEY_UP:
+            gameWindow.moveWindow(up);
+            return true;
+        case KEY_DOWN:
+            gameWindow.moveWindow(down);
+            return true;
+        case KEY_LEFT:
+            gameWindow.moveWindow(left);
+            return true;
+        case KEY_RIGHT:
+            gameWindow.moveWindow(right);
+            return true;
+        case '\n':
+            gameMode=settings;
+            return true;
+        case 'q':
+            return false;
+    }
+    return true;
+}
 bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
     switch(key){
         case '\n':
@@ -197,18 +233,6 @@ bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
 
 bool Snake::handleEventDuringAfterGameMode(int key) {
     switch(key){
-        case 'w':
-            gameWindow.moveWindow(up);
-            return true;
-        case 's':
-            gameWindow.moveWindow(down);
-            return true;
-        case 'a':
-            gameWindow.moveWindow(left);
-            return true;
-        case 'd':
-            gameWindow.moveWindow(right);
-            return true;
         case KEY_UP:
             gameWindow.changeWhichButtonIsPointed(up,gameWindow.afterGameButtons,gameWindow.whichOneInAfterGameIsPointed);
             return true;
@@ -243,18 +267,6 @@ bool Snake::handleEventDuringPauseMode(int key) {
         case 'r':
             gameMode=game;
             restartGame();
-            return true;
-        case 'w':
-            gameWindow.moveWindow(up);
-            return true;
-        case 's':
-            gameWindow.moveWindow(down);
-            return true;
-        case 'a':
-            gameWindow.moveWindow(left);
-            return true;
-        case 'd':
-            gameWindow.moveWindow(right);
             return true;
         case 'q':
             return false;
@@ -399,6 +411,9 @@ void Snake::gameLoop() {
                 break;
             case settings:
                 gameWindow.printSettings();
+                break;
+            case settingsPosition:
+                gameWindow.printSettingsPosition();
                 break;
             case helpBeforeGame:
                 gameWindow.printEntryHelpInfo();
