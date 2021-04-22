@@ -61,6 +61,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringSettingsMode(key);
         case settingsPosition:
             return handleEventDuringSettingsPositionMode(key);
+        case settingsSize:
+            return handleEventDuringSettingsSizeMode(key);
         case helpBeforeGame:
             return handleEventDuringHelpBeforeGameMode(key);
         case game:
@@ -162,7 +164,10 @@ bool Snake::handleEventDuringBeforeGameMode(int key) {
             gameWindow.changeWhichButtonIsPointed(down,gameWindow.menuButtons,gameWindow.whichOneInMenuIsPointed);
             return true;
         case '\n':
-            if(gameWindow.whichOneInMenuIsPointed==0) gameMode=game;
+            if(gameWindow.whichOneInMenuIsPointed==0) {
+                restartGame();
+                gameMode=game;
+            }
             else if(gameWindow.whichOneInMenuIsPointed==1) {
                 gameMode=settings;
                 gameWindow.whichOneInSettingsIsPointed=0;
@@ -181,7 +186,7 @@ bool Snake::handleEventDuringSettingsMode(int key) {
     switch(key){
         case '\n':
             if(gameWindow.whichOneInSettingsIsPointed==0) gameMode=settingsPosition;
-            else if(gameWindow.whichOneInSettingsIsPointed==1) return true;
+            else if(gameWindow.whichOneInSettingsIsPointed==1) gameMode=settingsSize;
             else if(gameWindow.whichOneInSettingsIsPointed==2) return true;
             else if(gameWindow.whichOneInSettingsIsPointed==3) gameMode=beforeGame;
             return true;
@@ -195,8 +200,8 @@ bool Snake::handleEventDuringSettingsMode(int key) {
             return false;
     }
     return true;
-
 }
+
 bool Snake::handleEventDuringSettingsPositionMode(int key) {
     switch(key){
         case KEY_UP:
@@ -219,6 +224,30 @@ bool Snake::handleEventDuringSettingsPositionMode(int key) {
     }
     return true;
 }
+
+bool Snake::handleEventDuringSettingsSizeMode(int key) {
+    switch(key){
+        case KEY_UP:
+            gameWindow.changeWindowSize(up);
+            return true;
+        case KEY_DOWN:
+            gameWindow.changeWindowSize(down);
+            return true;
+        case KEY_LEFT:
+            gameWindow.changeWindowSize(left);
+            return true;
+        case KEY_RIGHT:
+            gameWindow.changeWindowSize(right);
+            return true;
+        case '\n':
+            gameMode=settings;
+            return true;
+        case 'q':
+            return false;
+    }
+    return true;
+}
+
 bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
     switch(key){
         case '\n':
@@ -414,6 +443,9 @@ void Snake::gameLoop() {
                 break;
             case settingsPosition:
                 gameWindow.printSettingsPosition();
+                break;
+            case settingsSize:
+                gameWindow.printSettingsSize();
                 break;
             case helpBeforeGame:
                 gameWindow.printEntryHelpInfo();

@@ -27,12 +27,14 @@ class Window {
         void printEntryWindow();
         void printSettings();
         void printSettingsPosition();
+        void printSettingsSize();
         void printAfterGame(int level);
         void printEntryHelpInfo();
         void printPause();
         void printBackgroundForText(int width, int height, int y);
         void clearWindow();
         void moveWindow(enum direction dir);
+        void changeWindowSize(enum direction dir);
         void changeWhichButtonIsPointed(enum direction dir, const vector<pair<string,int>> &mapButton, int &whichOneIsPointed);
 
 };

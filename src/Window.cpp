@@ -84,7 +84,7 @@ void Window::printBorder() {
 
 void Window::printEntryWindow() {
     string line1="  _____             _        ";
-    int y=2+upperLeftCorner.y;
+    int y=heightWindow/4-3+upperLeftCorner.y;
     int x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
     init_color(15,0,300+iColor,0);
     init_pair(6, 15, COLOR_BLACK);
@@ -111,6 +111,9 @@ void Window::printSettings(){
     button.printMap(settingsButtons,whichOneInSettingsIsPointed);
 }
 void Window::printSettingsPosition() {
+    button.printButton("Back",true,heightWindow/4);
+}
+void Window::printSettingsSize() {
     button.printButton("Back",true,heightWindow/4);
 }
 void Window::printEntryHelpInfo() {
@@ -196,6 +199,24 @@ void Window::moveWindow(enum direction dir)
             break;
     };
     clearWindow();
+}
+void Window::changeWindowSize(enum direction dir) {
+    switch (dir) {
+        case up:
+            if(heightWindow>19) heightWindow--;
+            break;
+        case down:
+            if(heightWindow<45) heightWindow++;
+            break;
+        case left:
+            if(widthWindow>34) widthWindow--;
+            break;
+        case right:
+            if(widthWindow<100) widthWindow++;
+            break;
+    }
+    clearWindow();
+    button.setButtonVariables(CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1);
 }
 void Window::changeWhichButtonIsPointed(enum direction dir,const vector<pair<string,int>> &mapButton , int &whichOneIsPointed)
 {

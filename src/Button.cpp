@@ -28,3 +28,8 @@ void Button::printMap(vector<pair<string,int>> vector, int whichOneIsPointed) {
         i++;
     }
 }
+void Button::setButtonVariables(CPoint corner, int buttonWidth, int buttonHeight) {
+    this->upperLeftCorner=corner;
+    this->buttonHeight=buttonHeight;
+    this->buttonWidth=buttonWidth;
+}
