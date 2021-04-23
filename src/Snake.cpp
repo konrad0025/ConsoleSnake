@@ -20,19 +20,34 @@ void Snake::printSnake()
     init_color(COLOR_GREEN,0,300,0);
     init_pair(1, COLOR_YELLOW, COLOR_GREEN);
     init_pair(2, COLOR_YELLOW, 10);
+    init_color(20,900,900,0);
+    init_color(22,300,300,0);
+    init_pair(30, COLOR_YELLOW, 22);
+    init_pair(40, COLOR_YELLOW, 20);
+    init_color(21,100,200,1000);
+    init_pair(50, COLOR_YELLOW, COLOR_BLUE);
+    init_pair(60, COLOR_YELLOW, 21);
     for(unsigned int i=0; i<snakePosition.size();i++)
     {
         if(i==0)
         {
-            attron(COLOR_PAIR(1));
+            if(color==COLOR_YELLOW) attron(COLOR_PAIR(30));
+            else if(color==COLOR_GREEN) attron(COLOR_PAIR(1));
+            else if(color==COLOR_BLUE) attron(COLOR_PAIR(50));
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            attroff(COLOR_PAIR(1));
+            if(color==COLOR_YELLOW) attroff(COLOR_PAIR(30));
+            else if(color==COLOR_GREEN) attroff(COLOR_PAIR(1));
+            else if(color==COLOR_BLUE) attroff(COLOR_PAIR(50));
         }
         else
         {
-            attron(COLOR_PAIR(2));
+            if(color==COLOR_YELLOW) attron(COLOR_PAIR(40));
+            else if(color==COLOR_GREEN) attron(COLOR_PAIR(2));
+            else if(color==COLOR_BLUE) attron(COLOR_PAIR(60));
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            attroff(COLOR_PAIR(2));
+            if(color==COLOR_YELLOW) attroff(COLOR_PAIR(40));
+            else if(color==COLOR_GREEN) attroff(COLOR_PAIR(2));
+            else if(color==COLOR_BLUE) attroff(COLOR_PAIR(60));
         }
     }
 }
@@ -257,7 +272,7 @@ bool Snake::handleEventDuringSettingsColorMode(int key) {
     moveSnake();
     switch(key){
         case '\n':
-            if(gameWindow.whichOneInSettingsColorIsPointed==0) color=COLOR_RED;
+            if(gameWindow.whichOneInSettingsColorIsPointed==0) color=COLOR_YELLOW;
             else if(gameWindow.whichOneInSettingsColorIsPointed==1) color=COLOR_GREEN;
             else if(gameWindow.whichOneInSettingsColorIsPointed==2) color=COLOR_BLUE;
             else if(gameWindow.whichOneInSettingsColorIsPointed==3) {

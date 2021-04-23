@@ -23,7 +23,7 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
     settingsButtons.push_back(pair<string,int>("Snake Color",5));
     settingsButtons.push_back(pair<string,int>("Back",7));
     whichOneInSettingsIsPointed=0;
-    settingsColorButtons.push_back(pair<string,int>("Red",1));
+    settingsColorButtons.push_back(pair<string,int>("Yellow",1));
     settingsColorButtons.push_back(pair<string,int>("Green",3));
     settingsColorButtons.push_back(pair<string,int>("Blue",5));
     settingsColorButtons.push_back(pair<string,int>("Back",7));
@@ -53,7 +53,7 @@ Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0
     settingsButtons.push_back(pair<string,int>("Snake Color",5));
     settingsButtons.push_back(pair<string,int>("Back",7));
     whichOneInSettingsIsPointed=0;
-    settingsColorButtons.push_back(pair<string,int>("Red",1));
+    settingsColorButtons.push_back(pair<string,int>("Yellow",1));
     settingsColorButtons.push_back(pair<string,int>("Green",3));
     settingsColorButtons.push_back(pair<string,int>("Blue",5));
     settingsColorButtons.push_back(pair<string,int>("Back",7));
