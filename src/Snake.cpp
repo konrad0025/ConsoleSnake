@@ -2,10 +2,14 @@
 
 Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforeGame) {
 
-    snakePosition.push_back(CPoint(10,10));
-    snakePosition.push_back(CPoint(11,10));
-    snakePosition.push_back(CPoint(12,10));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+1,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+2,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+3,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+4,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+5,gameWindow.heightWindow/4-1));
     while(!makeFood()){}
+    color=COLOR_GREEN;
 }
 
 void Snake::print() {
@@ -63,6 +67,8 @@ bool Snake::handleEvent(int key) {
             return handleEventDuringSettingsPositionMode(key);
         case settingsSize:
             return handleEventDuringSettingsSizeMode(key);
+        case settingsColor:
+            return handleEventDuringSettingsColorMode(key);
         case helpBeforeGame:
             return handleEventDuringHelpBeforeGameMode(key);
         case game:
@@ -187,7 +193,7 @@ bool Snake::handleEventDuringSettingsMode(int key) {
         case '\n':
             if(gameWindow.whichOneInSettingsIsPointed==0) gameMode=settingsPosition;
             else if(gameWindow.whichOneInSettingsIsPointed==1) gameMode=settingsSize;
-            else if(gameWindow.whichOneInSettingsIsPointed==2) return true;
+            else if(gameWindow.whichOneInSettingsIsPointed==2) gameMode=settingsColor;
             else if(gameWindow.whichOneInSettingsIsPointed==3) gameMode=beforeGame;
             return true;
         case KEY_UP:
@@ -247,7 +253,28 @@ bool Snake::handleEventDuringSettingsSizeMode(int key) {
     }
     return true;
 }
-
+bool Snake::handleEventDuringSettingsColorMode(int key) {
+    switch(key){
+        case '\n':
+            if(gameWindow.whichOneInSettingsColorIsPointed==0) color=COLOR_RED;
+            else if(gameWindow.whichOneInSettingsColorIsPointed==1) color=COLOR_GREEN;
+            else if(gameWindow.whichOneInSettingsColorIsPointed==2) color=COLOR_BLUE;
+            else if(gameWindow.whichOneInSettingsColorIsPointed==3) {
+                gameWindow.whichOneInSettingsColorIsPointed=0;
+                gameMode=settings;
+            }
+            return true;
+        case KEY_UP:
+            gameWindow.changeWhichButtonIsPointed(up,gameWindow.settingsColorButtons,gameWindow.whichOneInSettingsColorIsPointed);
+            return true;
+        case KEY_DOWN:
+            gameWindow.changeWhichButtonIsPointed(down,gameWindow.settingsColorButtons,gameWindow.whichOneInSettingsColorIsPointed);
+            return true;
+        case 'q':
+            return false;
+    }
+    return true;
+}
 bool Snake::handleEventDuringHelpBeforeGameMode(int key) {
     switch(key){
         case '\n':
@@ -420,9 +447,9 @@ void Snake::restartGame()
 {
     gameWindow.clearWindow();
     snakePosition.clear();
-    snakePosition.push_back(CPoint(10,10));
-    snakePosition.push_back(CPoint(11,10));
-    snakePosition.push_back(CPoint(12,10));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+1,gameWindow.heightWindow/4-1));
+    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+2,gameWindow.heightWindow/4-1));
     level=0;
     dir=left;
     timeout(160);
@@ -446,6 +473,10 @@ void Snake::gameLoop() {
                 break;
             case settingsSize:
                 gameWindow.printSettingsSize();
+                break;
+            case settingsColor:
+                printSnake();
+                gameWindow.printSettingsColor();
                 break;
             case helpBeforeGame:
                 gameWindow.printEntryHelpInfo();

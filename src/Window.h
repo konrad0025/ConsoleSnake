@@ -17,7 +17,8 @@ class Window {
         vector<pair<string,int>> menuButtons;
         vector<pair<string,int>> afterGameButtons;
         vector<pair<string,int>> settingsButtons;
-        int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed,whichOneInSettingsIsPointed;
+        vector<pair<string,int>> settingsColorButtons;
+        int whichOneInMenuIsPointed,whichOneInAfterGameIsPointed,whichOneInSettingsIsPointed,whichOneInSettingsColorIsPointed;
 
         Window(Window &win);
         Window(CPoint& corner, int width,int height);
@@ -28,6 +29,7 @@ class Window {
         void printSettings();
         void printSettingsPosition();
         void printSettingsSize();
+        void printSettingsColor();
         void printAfterGame(int level);
         void printEntryHelpInfo();
         void printPause();
