@@ -5,9 +5,6 @@ Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforeGam
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2,gameWindow.heightWindow/4-1));
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+1,gameWindow.heightWindow/4-1));
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+2,gameWindow.heightWindow/4-1));
-    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+3,gameWindow.heightWindow/4-1));
-    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+4,gameWindow.heightWindow/4-1));
-    snakePosition.push_back(CPoint(gameWindow.widthWindow/2+5,gameWindow.heightWindow/4-1));
     while(!makeFood()){}
     color=COLOR_GREEN;
 }
@@ -193,7 +190,10 @@ bool Snake::handleEventDuringSettingsMode(int key) {
         case '\n':
             if(gameWindow.whichOneInSettingsIsPointed==0) gameMode=settingsPosition;
             else if(gameWindow.whichOneInSettingsIsPointed==1) gameMode=settingsSize;
-            else if(gameWindow.whichOneInSettingsIsPointed==2) gameMode=settingsColor;
+            else if(gameWindow.whichOneInSettingsIsPointed==2) {
+                gameMode=settingsColor;
+                restartGame();
+            }
             else if(gameWindow.whichOneInSettingsIsPointed==3) gameMode=beforeGame;
             return true;
         case KEY_UP:
@@ -254,6 +254,7 @@ bool Snake::handleEventDuringSettingsSizeMode(int key) {
     return true;
 }
 bool Snake::handleEventDuringSettingsColorMode(int key) {
+    moveSnake();
     switch(key){
         case '\n':
             if(gameWindow.whichOneInSettingsColorIsPointed==0) color=COLOR_RED;
@@ -450,6 +451,13 @@ void Snake::restartGame()
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2,gameWindow.heightWindow/4-1));
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+1,gameWindow.heightWindow/4-1));
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+2,gameWindow.heightWindow/4-1));
+    if(gameMode==settings || gameMode==settingsColor || gameMode==settingsSize || gameMode==settingsPosition)
+    {
+        for(int i=3;i<gameWindow.widthWindow/4;i++)
+        {
+            snakePosition.push_back(CPoint(gameWindow.widthWindow/2+i,gameWindow.heightWindow/4-1));
+        }
+    }
     level=0;
     dir=left;
     timeout(160);
