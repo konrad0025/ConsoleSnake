@@ -17,15 +17,6 @@ void Snake::print() {
 
 void Snake::printSnake()
 {
-
-    /*init_pair(2, COLOR_YELLOW, 10);
-    init_color(20,900,900,0);
-    init_color(22,300,300,0);
-    init_pair(30, COLOR_YELLOW, 22);
-    init_pair(40, COLOR_YELLOW, 20);
-    init_color(21,100,200,1000);
-    init_pair(50, COLOR_YELLOW, COLOR_BLUE);
-    init_pair(60, COLOR_YELLOW, 21);*/
     for(unsigned int i=0; i<snakePosition.size();i++)
     {
         if(i==0)
