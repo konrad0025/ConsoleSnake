@@ -21,23 +21,23 @@ void Snake::printSnake()
     {
         if(i==0)
         {
-            if(color==COLOR_YELLOW) Color::colorOn(OLIVE,BLACK);
-            else if(color==COLOR_GREEN) Color::colorOn(DARK_GREEN,BLACK);
-            else if(color==COLOR_BLUE) Color::colorOn(BLUE,BLACK);
+            if(color==YELLOW) Color::colorOn(OLIVE,BLACK);
+            else if(color==GREEN) Color::colorOn(DARK_GREEN,BLACK);
+            else if(color==BLUE) Color::colorOn(BLUE,BLACK);
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            if(color==COLOR_YELLOW) Color::colorOff(OLIVE,BLACK);
-            else if(color==COLOR_GREEN) Color::colorOff(DARK_GREEN,BLACK);
-            else if(color==COLOR_BLUE) Color::colorOff(BLUE,BLACK);
+            if(color==YELLOW) Color::colorOff(OLIVE,BLACK);
+            else if(color==GREEN) Color::colorOff(DARK_GREEN,BLACK);
+            else if(color==BLUE) Color::colorOff(BLUE,BLACK);
         }
         else
         {
-            if(color==COLOR_YELLOW) Color::colorOn(YELLOW,BLACK);
-            else if(color==COLOR_GREEN) Color::colorOn(GREEN,BLACK);
-            else if(color==COLOR_BLUE) Color::colorOn(BRIGHT_BLUE,BLACK);
+            if(color==YELLOW) Color::colorOn(YELLOW,BLACK);
+            else if(color==GREEN) Color::colorOn(GREEN,BLACK);
+            else if(color==BLUE) Color::colorOn(BRIGHT_BLUE,BLACK);
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            if(color==COLOR_YELLOW) Color::colorOff(YELLOW,BLACK);
-            else if(color==COLOR_GREEN) Color::colorOff(GREEN,BLACK);
-            else if(color==COLOR_BLUE) Color::colorOff(BRIGHT_BLUE,BLACK);
+            if(color==YELLOW) Color::colorOff(YELLOW,BLACK);
+            else if(color==GREEN) Color::colorOff(GREEN,BLACK);
+            else if(color==BLUE) Color::colorOff(BRIGHT_BLUE,BLACK);
         }
     }
 }
@@ -261,9 +261,9 @@ bool Snake::handleEventDuringSettingsColorMode(int key) {
     moveSnake();
     switch(key){
         case '\n':
-            if(gameWindow.whichOneInSettingsColorIsPointed==0) color=COLOR_YELLOW;
-            else if(gameWindow.whichOneInSettingsColorIsPointed==1) color=COLOR_GREEN;
-            else if(gameWindow.whichOneInSettingsColorIsPointed==2) color=COLOR_BLUE;
+            if(gameWindow.whichOneInSettingsColorIsPointed==0) color=YELLOW;
+            else if(gameWindow.whichOneInSettingsColorIsPointed==1) color=GREEN;
+            else if(gameWindow.whichOneInSettingsColorIsPointed==2) color=BLUE;
             else if(gameWindow.whichOneInSettingsColorIsPointed==3) {
                 gameWindow.whichOneInSettingsColorIsPointed=0;
                 gameMode=settings;
