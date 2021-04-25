@@ -8,7 +8,7 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
-
+    Color::colorInit();
     menuButtons.push_back(pair<string,int>("Start",1));
     menuButtons.push_back(pair<string,int>("Settings",3));
     menuButtons.push_back(pair<string,int>("Help",5));
@@ -30,7 +30,6 @@ Window::Window(Window &win): upperLeftCorner(win.upperLeftCorner),iColorSide(tru
     whichOneInSettingsColorIsPointed=0;
 
 }
-
 Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0), upperLeftCorner(corner), widthWindow(width),heightWindow(height),button(CPoint(upperLeftCorner.x+(widthWindow/2)/2,upperLeftCorner.y+(heightWindow/2)),widthWindow/2,1) {
     initscr();
     cbreak();
@@ -39,6 +38,7 @@ Window::Window(CPoint& corner, int width, int height):iColorSide(true), iColor(0
     start_color();
     keypad(stdscr, TRUE);
     timeout(160);
+    Color::colorInit();
     menuButtons.push_back(pair<string,int>("Start",1));
     menuButtons.push_back(pair<string,int>("Settings",3));
     menuButtons.push_back(pair<string,int>("Help",5));
@@ -69,24 +69,22 @@ int Window::getEvent() {
 }
 
 void Window::printBorder() {
-    init_color(COLOR_WHITE,500,500,500);
-    init_pair(3, COLOR_YELLOW, COLOR_WHITE);
-    init_pair(4,COLOR_YELLOW,COLOR_BLACK);
+
     for(int i=0;i<widthWindow;i++)
     {
         for(int j=0;j<heightWindow;j++)
         {
             if(i==0 || j==0 || j==heightWindow-1 || i==widthWindow-1)
             {
-                attron(COLOR_PAIR(3));
+                Color::colorOn(GREY,BLACK);
                 mvaddch(upperLeftCorner.y+j,upperLeftCorner.x+i,' ');
-                attroff(COLOR_PAIR(3));
+                Color::colorOff(GREY,BLACK);
             }
             else
             {
-                attron(COLOR_PAIR(4));
+                Color::colorOn(BLACK,WHITE);
                 mvaddch(upperLeftCorner.y+j,upperLeftCorner.x+i,' ');
-                attroff(COLOR_PAIR(4));
+                Color::colorOff(BLACK,WHITE);
             }
         }
     }
@@ -97,7 +95,6 @@ void Window::printEntryWindow() {
     int y=heightWindow/4-3+upperLeftCorner.y;
     int x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
     init_color(15,0,300+iColor,0);
-    init_pair(6, 15, COLOR_BLACK);
     iColorSide ? iColor=iColor+50 : iColor=iColor-50;
     if(iColor>750){
         iColorSide=false;
@@ -106,14 +103,14 @@ void Window::printEntryWindow() {
     {
         iColorSide=true;
     }
-    attron(COLOR_PAIR(6));
+    Color::colorOn(BLACK,15);
     mvprintw(++y,x,line1.c_str());
     mvprintw(++y,x," / ____|           | |       ");
     mvprintw(++y,x,"| (___  _ __   __ _| | _____ ");
     mvprintw(++y,x," \\___ \\| '_ \\ / _` | |/ / _ \\ ");
     mvprintw(++y,x," ____) | | | | (_| |   |  __/");
     mvprintw(++y,x,"|_____/|_| |_|\\__,_|_|\\_\\___|");
-    attroff(COLOR_PAIR(6));
+    Color::colorOff(BLACK,15);;
     button.printMap(menuButtons,whichOneInMenuIsPointed);
 }
 
@@ -131,14 +128,12 @@ void Window::printSettingsColor() {
 }
 void Window::printEntryHelpInfo() {
 
-    init_color(COLOR_WHITE,500,500,500);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
     string line2="Press-'r' to restart the game";
     string line3="Press-'p' to pause the game";
     string line4="Press-'q' to quit the game";
     string line1="During the game";
     string line5="WASD- let you move";
-    attron(COLOR_PAIR(3));
+    Color::colorOn(GREY,BLACK);
     int y=(upperLeftCorner.y+heightWindow/2)-6;
     printBackgroundForText(line2.size()+2,5+2,y);
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line1.size()/2,line1.c_str());
@@ -146,32 +141,28 @@ void Window::printEntryHelpInfo() {
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line3.size()/2,line3.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line4.size()/2,line4.c_str());
     mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line5.size()/2,line5.c_str());
-    attroff(COLOR_PAIR(3));
+    Color::colorOff(GREY,BLACK);
     button.printButton("Back",true,heightWindow/4);
 }
 void Window::printPause() {
-    init_color(COLOR_WHITE,500,500,500);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
     string line1 ="Press-'p' to unpause";
     int y=upperLeftCorner.y+2,x=upperLeftCorner.x+widthWindow/2-line1.size()/2;
-    attron(COLOR_PAIR(3));
+    Color::colorOn(GREY,BLACK);
     printBackgroundForText(line1.size()+2,1,y);
     mvprintw(y,x,line1.c_str());
-    attroff(COLOR_PAIR(3));
+    Color::colorOff(GREY,BLACK);
 }
 void Window::printAfterGame(int level)
 {
-    init_color(COLOR_WHITE,500,500,500);
-    init_pair(8, COLOR_BLACK, COLOR_WHITE);
     string line1="Your final score is ";
     line1+=to_string(level);
     int y=upperLeftCorner.y+heightWindow/4;
     clearWindow();
     printBorder();
-    attron(COLOR_PAIR(8));
+    Color::colorOn(GREY,BLACK);
     printBackgroundForText(line1.size()+2,1+2,y);
     mvprintw(++y,upperLeftCorner.x+widthWindow/2-line1.size()/2,line1.c_str());
-    attroff(COLOR_PAIR(8));
+    Color::colorOff(GREY,BLACK);
     button.printMap(afterGameButtons,whichOneInAfterGameIsPointed);
 }
 void Window::printBackgroundForText(int width, int height, int y) {
@@ -187,7 +178,9 @@ void Window::clearWindow()
 {
     for(int i=0;i<LINES;i++)
     {
+        Color::colorOn(BLACK,WHITE);
         mvhline(i, 0, ' ', COLS);
+        Color::colorOff(BLACK,WHITE);
     }
 }
 

@@ -17,55 +17,53 @@ void Snake::print() {
 
 void Snake::printSnake()
 {
-    init_color(COLOR_GREEN,0,300,0);
-    init_pair(1, COLOR_YELLOW, COLOR_GREEN);
-    init_pair(2, COLOR_YELLOW, 10);
+
+    /*init_pair(2, COLOR_YELLOW, 10);
     init_color(20,900,900,0);
     init_color(22,300,300,0);
     init_pair(30, COLOR_YELLOW, 22);
     init_pair(40, COLOR_YELLOW, 20);
     init_color(21,100,200,1000);
     init_pair(50, COLOR_YELLOW, COLOR_BLUE);
-    init_pair(60, COLOR_YELLOW, 21);
+    init_pair(60, COLOR_YELLOW, 21);*/
     for(unsigned int i=0; i<snakePosition.size();i++)
     {
         if(i==0)
         {
-            if(color==COLOR_YELLOW) attron(COLOR_PAIR(30));
-            else if(color==COLOR_GREEN) attron(COLOR_PAIR(1));
-            else if(color==COLOR_BLUE) attron(COLOR_PAIR(50));
+            if(color==COLOR_YELLOW) Color::colorOn(OLIVE,BLACK);
+            else if(color==COLOR_GREEN) Color::colorOn(DARK_GREEN,BLACK);
+            else if(color==COLOR_BLUE) Color::colorOn(BLUE,BLACK);
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            if(color==COLOR_YELLOW) attroff(COLOR_PAIR(30));
-            else if(color==COLOR_GREEN) attroff(COLOR_PAIR(1));
-            else if(color==COLOR_BLUE) attroff(COLOR_PAIR(50));
+            if(color==COLOR_YELLOW) Color::colorOff(OLIVE,BLACK);
+            else if(color==COLOR_GREEN) Color::colorOff(DARK_GREEN,BLACK);
+            else if(color==COLOR_BLUE) Color::colorOff(BLUE,BLACK);
         }
         else
         {
-            if(color==COLOR_YELLOW) attron(COLOR_PAIR(40));
-            else if(color==COLOR_GREEN) attron(COLOR_PAIR(2));
-            else if(color==COLOR_BLUE) attron(COLOR_PAIR(60));
+            if(color==COLOR_YELLOW) Color::colorOn(YELLOW,BLACK);
+            else if(color==COLOR_GREEN) Color::colorOn(GREEN,BLACK);
+            else if(color==COLOR_BLUE) Color::colorOn(BRIGHT_BLUE,BLACK);
             mvaddch(gameWindow.upperLeftCorner.y+snakePosition[i].y,gameWindow.upperLeftCorner.x+snakePosition[i].x,' ');
-            if(color==COLOR_YELLOW) attroff(COLOR_PAIR(40));
-            else if(color==COLOR_GREEN) attroff(COLOR_PAIR(2));
-            else if(color==COLOR_BLUE) attroff(COLOR_PAIR(60));
+            if(color==COLOR_YELLOW) Color::colorOff(YELLOW,BLACK);
+            else if(color==COLOR_GREEN) Color::colorOff(GREEN,BLACK);
+            else if(color==COLOR_BLUE) Color::colorOff(BRIGHT_BLUE,BLACK);
         }
     }
 }
 
 void Snake::printFood() {
-    init_pair(5, COLOR_YELLOW, COLOR_RED);
-    attron(COLOR_PAIR(5));
+
+    Color::colorOn(RED,BLACK);
     mvaddch(gameWindow.upperLeftCorner.y+food.y,gameWindow.upperLeftCorner.x+food.x,' ');
-    attroff(COLOR_PAIR(5));
+    Color::colorOff(RED,BLACK);
 }
 
 void Snake::printLevelInfo() {
     int textSize=strlen("|Your Score = %d|");
-    init_color(COLOR_WHITE,500,500,500);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
-    attron(COLOR_PAIR(3));
+
+    Color::colorOn(GREY,BLACK);
     mvprintw(gameWindow.upperLeftCorner.y-1,gameWindow.upperLeftCorner.x+(gameWindow.widthWindow/2)-(textSize/2),"|Your Score = %d|",level);
-    attroff(COLOR_PAIR(3));
+    Color::colorOff(GREY,BLACK);
 }
 
 bool Snake::handleEvent(int key) {

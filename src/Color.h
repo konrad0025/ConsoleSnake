@@ -1,18 +1,18 @@
 #include <ncurses.h>
-#define RED 0
-#define GREEN 1
-#define BLUE 2
-#define YELLOW 3
-#define BLACK 4
-#define GREY 5
-#define WHITE 6
-#define BRIGHT_BLUE 7
-#define DARK_GREEN 8
-#define OLIVE 9
+#define RED 1
+#define GREEN 2
+#define BLUE 3
+#define YELLOW 4
+#define BLACK 5
+#define GREY 6
+#define WHITE 7
+#define BRIGHT_BLUE 8
+#define DARK_GREEN 9
+#define OLIVE 10
 
 class Color {
-    void static colorInit();
-    void static colorOn(int backGroundColor,int fontColor);
-    void static colorOff(int backGroundColor,int fontColor);
-
+    public:
+        void static colorInit();
+        void static colorOn(int backGroundColor,int fontColor);
+        void static colorOff(int backGroundColor,int fontColor);
 };

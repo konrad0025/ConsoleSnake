@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include "CPoint.h"
+#include "Color.h"
 using namespace std;
 class Button {
     public:

@@ -3,12 +3,7 @@
 Button::Button(CPoint corner, int width, int height): upperLeftCorner(corner),buttonWidth(width),buttonHeight(height) {}
 
 void Button::printButton(string textOnButton, bool isPointed, int y) {
-    init_color(COLOR_WHITE,500,500,500);
-    init_color(11,1000,1000,1000);
-    init_pair(3, COLOR_BLACK, COLOR_WHITE);
-    init_pair(7, COLOR_BLACK, 11);
-
-    isPointed ? attron(COLOR_PAIR(7)) : attron(COLOR_PAIR(3));
+    isPointed ? Color::colorOn(WHITE,BLACK) : Color::colorOn(GREY,BLACK);
     for(int i=0;i<buttonWidth;i++)
     {
         for(int j=0;j<buttonHeight;j++)
@@ -17,7 +12,7 @@ void Button::printButton(string textOnButton, bool isPointed, int y) {
         }
     }
     mvprintw(upperLeftCorner.y+y,upperLeftCorner.x+(buttonWidth/2)-(textOnButton.size()/2),textOnButton.c_str());
-    isPointed ? attroff(COLOR_PAIR(7)) : attroff(COLOR_PAIR(3));
+    isPointed ? Color::colorOff(WHITE,BLACK) : Color::colorOff(GREY,BLACK);
 }
 
 void Button::printMap(vector<pair<string,int>> vector, int whichOneIsPointed) {
