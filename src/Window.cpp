@@ -188,20 +188,32 @@ void Window::moveWindow(enum direction dir)
 {
     switch(dir){
         case up:
-            upperLeftCorner.y--;
-            button.upperLeftCorner.y--;
+            if(upperLeftCorner.y>0)
+            {
+                upperLeftCorner.y--;
+                button.upperLeftCorner.y--;
+            }
             break;
         case down:
-            upperLeftCorner.y++;
-            button.upperLeftCorner.y++;
+            if(upperLeftCorner.y+heightWindow<LINES)
+            {
+                upperLeftCorner.y++;
+                button.upperLeftCorner.y++;
+            }
             break;
         case left:
-            upperLeftCorner.x--;
-            button.upperLeftCorner.x--;
+            if(upperLeftCorner.x>0)
+            {
+                upperLeftCorner.x--;
+                button.upperLeftCorner.x--;
+            }
             break;
         case right:
-            upperLeftCorner.x++;
-            button.upperLeftCorner.x++;
+            if(upperLeftCorner.x+widthWindow<COLS)
+            {
+                upperLeftCorner.x++;
+                button.upperLeftCorner.x++;
+            }
             break;
     };
     clearWindow();
@@ -212,13 +224,13 @@ void Window::changeWindowSize(enum direction dir) {
             if(heightWindow>19) heightWindow--;
             break;
         case down:
-            if(heightWindow<45) heightWindow++;
+            if(heightWindow<45 && upperLeftCorner.y+heightWindow<LINES) heightWindow++;
             break;
         case left:
             if(widthWindow>34) widthWindow--;
             break;
         case right:
-            if(widthWindow<100) widthWindow++;
+            if(widthWindow<100 && upperLeftCorner.x+widthWindow<COLS) widthWindow++;
             break;
     }
     clearWindow();
