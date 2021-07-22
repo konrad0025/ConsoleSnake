@@ -13,7 +13,7 @@ The main goal is to earn points and get bigger.<br><br>
 ![](photosToReadme/position.gif)
 <br>
 #### size <br>
-![](photosToReadme/size.gif)
+![](photosToReadme/size.gif | width=100)
 <br>
 #### and snake color <br>
 ![](photosToReadme/color.gif)
