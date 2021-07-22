@@ -18,5 +18,5 @@ The main goal is to earn points and get bigger.<br><br>
 <img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/size.gif" width="49%" height="49%" />
 
 </p>
-<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/color.gif" width="100%" height="100%" />
+<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/color.gif" width="98%" height="98%" />
 
