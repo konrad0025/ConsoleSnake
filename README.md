@@ -17,4 +17,5 @@ The main goal is to earn points and get bigger.<br><br>
 <br>
 #### and snake color <br>
 ![](photosToReadme/color.gif)
-
+![](photosToReadme/color.gif)
+![](photosToReadme/color.gif)
