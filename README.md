@@ -12,10 +12,10 @@ The main goal is to earn points and get bigger.<br><br>
 
 #### You can also change the game window position, size and snake color <br>
 <p float="left">
-<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/position.gif" width="50%" height="50%" />
+<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/position.gif" width="49%" height="49%" />
 
 
-<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/size.gif" width="50%" height="50%" />
+<img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/size.gif" width="49%" height="49%" />
 
 </p>
 <img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/color.gif" width="100%" height="100%" />
