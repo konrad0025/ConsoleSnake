@@ -118,9 +118,21 @@ void Window::printSettings(){
     button.printMap(settingsButtons,whichOneInSettingsIsPointed);
 }
 void Window::printSettingsPosition() {
+    string line1="Reposition window";
+    string line2="by using arrows";
+    int y=(upperLeftCorner.y+heightWindow/2)-5;
+    printBackgroundForText(line1.size()+2,2+2,y);
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line1.size()/2,line1.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line2.size()/2,line2.c_str());
     button.printButton("Back",true,heightWindow/4);
 }
 void Window::printSettingsSize() {
+    string line1="Resize window";
+    string line2="by using arrows";
+    int y=(upperLeftCorner.y+heightWindow/2)-5;
+    printBackgroundForText(line2.size()+2,2+2,y);
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line1.size()/2,line1.c_str());
+    mvprintw(++y,(upperLeftCorner.x+widthWindow/2)-line2.size()/2,line2.c_str());
     button.printButton("Back",true,heightWindow/4);
 }
 void Window::printSettingsColor() {
@@ -132,7 +144,7 @@ void Window::printEntryHelpInfo() {
     string line3="Press-'p' to pause the game";
     string line4="Press-'q' to quit the game";
     string line1="During the game";
-    string line5="WASD- let you move";
+    string line5="Arrows- let you move";
     Color::colorOn(GREY,BLACK);
     int y=(upperLeftCorner.y+heightWindow/2)-6;
     printBackgroundForText(line2.size()+2,5+2,y);

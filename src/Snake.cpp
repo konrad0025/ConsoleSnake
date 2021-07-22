@@ -6,7 +6,7 @@ Snake::Snake(Window &win): gameWindow(win),dir(left),level(0),gameMode(beforeGam
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+1,gameWindow.heightWindow/4-1));
     snakePosition.push_back(CPoint(gameWindow.widthWindow/2+2,gameWindow.heightWindow/4-1));
     while(!makeFood()){}
-    color=COLOR_GREEN;
+    color=GREEN;
 }
 
 void Snake::print() {
