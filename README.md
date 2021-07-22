@@ -11,8 +11,8 @@ This is a typical snake game where you control your snake by using 'arrows'.<br>
 The main goal is to earn points and get bigger.<br>
 You can also change the game window position<br>
 ![](photosToReadme/position.gif)
-size<br>
+<br>size<br>
 ![](photosToReadme/size.gif)
-and snake color<br>
+<br>and snake color<br>
 ![](photosToReadme/color.gif)
 
