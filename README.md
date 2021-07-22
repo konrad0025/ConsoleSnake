@@ -10,7 +10,8 @@ Just install ncurses package, run the makefile and then run ConsolSnake
 This is a typical snake game where you control your snake by using 'arrows'.<br>
 The main goal is to earn points and get bigger.<br><br>
 
-### You can also change the game window position, size and snake color in settings <br>
+### Settings <br>
+You can also change the game window position, size and snake color<br>
 <p float="left">
 <img src="https://github.com/konrad0025/ConsoleSnake/blob/main/photosToReadme/position.gif" width="49%" height="49%" />
 
