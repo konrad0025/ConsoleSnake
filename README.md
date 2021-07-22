@@ -4,6 +4,7 @@ Game was created with the use of ncurses library.
 ### About the game
 This is a typical snake game where you control your snake by using 'arrows'.<br>
 The main goal is to earn points and get bigger.<br>
+To navigate through the menu, use the 'arrows' and 'enter'<br>
 #### Short Gameplay
 ![](photosToReadme/gameplay.gif)
 ### How to run this game?
